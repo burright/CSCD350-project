@@ -21,10 +21,11 @@ public class make_GUI {
 	   public make_GUI(){
 		      area.setSize(800,400);
 		      area.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    
+		      
 		      messages.setLayout(new GridLayout(1,1));
 		      window.setLayout(new GridLayout(3,3,3,3));
 		      area.setLayout(new GridLayout(1,1));
+		      
 		      messageArea.setBorder(LineBorder.createGrayLineBorder());
 		   	  messages.add(messageArea);
 		   	  //messageArea.setBackground(Color.BLUE);
