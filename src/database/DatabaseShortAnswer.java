@@ -47,7 +47,19 @@ public class DatabaseShortAnswer extends A_Database
   @Override
   public void addQuestion(String question, String answer)
   {
+    try
+    {
+      Statement statement = _connection.createStatement();
 
+      String sql = "INSERT INTO short_answer(question,answer) " +
+        "VALUES ('"+question+"','"+answer.toLowerCase()+"')";
+      statement.execute(sql);
+      statement.close();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 
   @Override
