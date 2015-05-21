@@ -1,0 +1,9 @@
+MazeInput File Format: 
+First line is maze dimentions.
+Subsequent lines represent the four doors that make up one room and are in the format: NorthDoor SouthDoor EastDoor WestDoor
+
+Each door is represented by a 1 or a 0:
+1 represents an existing door
+0 representing a non existant door
+
+Maze rooms are read in from left to right starting on row 0 column 0
