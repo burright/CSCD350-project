@@ -1,3 +1,5 @@
+package model.maze;
+
 import java.util.*;
 import java.io.*;
 
@@ -59,7 +61,7 @@ public class MazeDriver {
 		{
 			for(int j=0; j<maze.getY(); j++)
 			{
-				System.out.println("Room index: "+i+" "+j);
+				System.out.println("model.maze.Room index: "+i+" "+j);
 				maze.getRoom(i,j).printRoom();
 				System.out.println();
 			}

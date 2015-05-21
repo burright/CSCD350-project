@@ -1,3 +1,5 @@
+package model.maze;
+
 public class Door {
 
 	public boolean exists;

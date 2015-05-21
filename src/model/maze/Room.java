@@ -1,3 +1,5 @@
+package model.maze;
+
 public class Room {
 
 	private Door N_door,S_door,E_door,W_door;
@@ -13,12 +15,12 @@ public class Room {
 	public void printRoom()
 	{
 		if(N_door.exists)
-			System.out.println("North Door");
+			System.out.println("North model.maze.Door");
 		if(S_door.exists)
-			System.out.println("South Door");
+			System.out.println("South model.maze.Door");
 		if(E_door.exists)
-			System.out.println("East Door");
+			System.out.println("East model.maze.Door");
 		if(W_door.exists)
-			System.out.println("West Door");
+			System.out.println("West model.maze.Door");
 	}
 }

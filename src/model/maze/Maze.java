@@ -1,3 +1,5 @@
+package model.maze;
+
 public class Maze {
 
 	private Room[][] maze;

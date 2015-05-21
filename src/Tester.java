@@ -1,3 +1,5 @@
+import model.maze.MazeDriver;
+
 import java.io.*;
 
 public class Tester {
