@@ -34,7 +34,7 @@ public abstract class A_Database
     try
     {
       Class.forName("org.sqlite.JDBC");
-      _connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+      _connection = DriverManager.getConnection("jdbc:sqlite:questions.db");
       _connection.setAutoCommit(false);
     }
     catch (Exception e)
