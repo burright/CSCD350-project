@@ -22,6 +22,8 @@ public abstract class A_Database
   protected static final String KEY_OPTC = "optc";
 
   protected Connection _connection = null;
+  protected int[] _randomQuestionArray;
+  protected int _questionIndex = 0;
 
   public A_Database(String name)
   {
@@ -55,6 +57,22 @@ public abstract class A_Database
     }
   }
 
+  public int getSize()
+  {
+    try
+    {
+      // find the number of questions by looking at the last question's id
+      Statement statement = _connection.createStatement();
+      ResultSet resultSet = statement.executeQuery("SELECT id FROM "+DB_NAME+" ORDER BY id DESC;");
+      return resultSet.getInt(KEY_ID);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
   public String[] getQuestions()
   {
     String[] questions = null;
@@ -64,12 +82,9 @@ public abstract class A_Database
     {
       Statement statement = _connection.createStatement();
 
-      // find the number of questions by looking at the last question's id
-      ResultSet resultSet = statement.executeQuery("SELECT id FROM "+DB_NAME+" ORDER BY id DESC;");
-      int size = resultSet.getInt(KEY_ID);
-      questions = new String[size];
+      questions = new String[getSize()];
 
-      resultSet = statement.executeQuery("SELECT question FROM "+DB_NAME+";");
+      ResultSet resultSet = statement.executeQuery("SELECT question FROM "+DB_NAME+";");
 
       while (resultSet.next())
       {
@@ -109,6 +124,11 @@ public abstract class A_Database
   {
     String question = getQuestion(id);
     return answer.equalsIgnoreCase(question);
+  }
+
+  public Question getRandomQuestion()
+  {
+
   }
 
   public abstract String[] getAll();

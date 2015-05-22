@@ -2,6 +2,7 @@ import database.DatabaseMultipleChoice;
 import database.DatabaseShortAnswer;
 import database.DatabaseTrueFalse;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -34,6 +35,7 @@ public class DatabaseTester
           addQuestion();
           break;
         case 3:
+          askQuestion();
           break;
         case 4:
           break;
@@ -43,6 +45,25 @@ public class DatabaseTester
       }
 
     }while (!quit);
+
+    multipleChoice.closeConnection();
+    shortAnswer.closeConnection();
+    trueFalse.closeConnection();
+  }
+
+  public static void askQuestion()
+  {
+    Random random = new Random();
+
+    switch (random.nextInt(2))
+    {
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+    }
   }
 
   public static void addQuestion()

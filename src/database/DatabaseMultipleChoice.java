@@ -40,12 +40,9 @@ public class DatabaseMultipleChoice extends A_Database
     {
       Statement statement = _connection.createStatement();
 
-      // find the number of questions by looking at the last question's id
-      ResultSet resultSet = statement.executeQuery("SELECT id FROM multiple_choice ORDER BY id DESC;");
-      int size = resultSet.getInt(KEY_ID);
-      questions = new String[size];
+      questions = new String[getSize()];
 
-      resultSet = statement.executeQuery("SELECT * FROM multiple_choice;");
+      ResultSet resultSet = statement.executeQuery("SELECT * FROM multiple_choice;");
 
       while(resultSet.next())
       {

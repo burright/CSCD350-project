@@ -23,12 +23,9 @@ public class DatabaseShortAnswer extends A_Database
     {
       Statement statement = _connection.createStatement();
 
-      // find the number of questions by looking at the last question's id
-      ResultSet resultSet = statement.executeQuery("SELECT id FROM short_answer ORDER BY id DESC;");
-      int size = resultSet.getInt(KEY_ID);
-      questions = new String[size];
+      questions = new String[getSize()];
 
-      resultSet = statement.executeQuery("SELECT * FROM short_answer;");
+      ResultSet resultSet = statement.executeQuery("SELECT * FROM short_answer;");
 
       while (resultSet.next())
       {
