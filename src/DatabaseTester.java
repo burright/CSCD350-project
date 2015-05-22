@@ -1,6 +1,4 @@
-import database.DatabaseMultipleChoice;
-import database.DatabaseShortAnswer;
-import database.DatabaseTrueFalse;
+import database.Database;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -11,16 +9,16 @@ import java.util.Scanner;
 public class DatabaseTester
 {
   public static Scanner scan;
-  public static DatabaseMultipleChoice multipleChoice;
-  public static DatabaseShortAnswer shortAnswer;
-  public static DatabaseTrueFalse trueFalse;
+  public static Database multipleChoice;
+  public static Database shortAnswer;
+  public static Database trueFalse;
 
   public static void main(String[] args)
   {
     scan = new Scanner(System.in);
-    multipleChoice = new DatabaseMultipleChoice();
-    shortAnswer = new DatabaseShortAnswer();
-    trueFalse = new DatabaseTrueFalse();
+    multipleChoice = new Database("multiple_choice");
+    shortAnswer = new Database("short_answer");
+    trueFalse = new Database("true_false");
     boolean quit = false;
 
     do
