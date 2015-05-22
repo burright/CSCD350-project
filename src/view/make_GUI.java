@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class make_GUI {
-	   private static JFrame area = new JFrame("trivia");
+	   private static JFrame area = new JFrame("Trivia");
 	   private static JPanel window = new JPanel();
 	   private JButton a = new JButton("");
 	   private JButton b = new JButton("");
