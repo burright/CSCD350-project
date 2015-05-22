@@ -2,6 +2,11 @@ package view;
 
 
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -33,7 +38,7 @@ public class make_GUI {
 		      
 		     
 		      messages.setLayout(new GridLayout(3,1));
-		      window.setLayout(new GridLayout(3,3,2,3));
+		      window.setLayout(new GridLayout(1,1));
 		      area.setLayout(new GridLayout(1,1));
 		      messageArea.setBorder(LineBorder.createBlackLineBorder());
 		      messages.add(chattext);
@@ -43,12 +48,7 @@ public class make_GUI {
 		      window.add(a);
 		      window.add(b);
 		      window.add(c);
-		      window.add(d);
-		      window.add(e);
-		      window.add(f);
-		      window.add(g);
-		      window.add(h);
-		      window.add(i);
+		
 		      window.add(messages);
 		      //window.add(messageArea, "Center");
 		   	
@@ -59,5 +59,32 @@ public class make_GUI {
 		   	  //window.add(a.addActionListnener(new ActionListesner(){public void actionPerformed(ActionEvent e){JOptionPane.set()}}))
 
 		      area.add(window);
+	   }
+	   
+	   
+	   
+	   public void makeMulChoiceGUI(String question,String a, String b, String c){
+		   this.a.setText(a);
+		   this.b.setText(b);
+		   this.c.setText(c);
+		  
+		   
+		   messageArea.setText(question);
+	   }
+	   
+	   public void makeShortAnswerGui(){
+		   
+	   }
+	   
+	   public void makeTrueFalseGui(){
+		   
+	   }
+	   
+	   public void displayDoors() throws IOException{
+		   String path = "door.jpg";
+		   InputStream imgStream = make_GUI.class.getResourceAsStream(path);
+		   BufferedImage myImg = ImageIO.read(imgStream);
+		   this.a.setIcon((Icon) myImg);
+		   
 	   }
 }
