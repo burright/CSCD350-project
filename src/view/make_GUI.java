@@ -10,18 +10,14 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class make_GUI {
+public class make_GUI 
+{
 	   private static JFrame area = new JFrame("Trivia");
 	   private static JPanel window = new JPanel();
 	   private JButton a = new JButton("");
 	   private JButton b = new JButton("");
 	   private JButton c = new JButton(""); 
-	   private JButton d = new JButton("");
-	   private JButton e = new JButton("");
-	   private JButton f = new JButton("");
-	   private JButton g = new JButton("");
-	   private JButton h = new JButton("");
-	   private JButton i = new JButton("");
+
 	   private JPanel messages = new JPanel();
 	   private JPanel chatIn = new JPanel();
 	   private static JTextArea chattext = new JTextArea(3,40);
@@ -32,7 +28,8 @@ public class make_GUI {
 		
 	   public String player = "";
 	   
-	   public make_GUI(){
+	   public make_GUI()
+	   {
 		   area.setSize(800,400);
 		      area.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		      
@@ -62,25 +59,60 @@ public class make_GUI {
 	   }
 	   
 	   
+	   public void resetGUI()
+	   {
+		   
+	  
 	   
-	   public void makeMulChoiceGUI(String question,String a, String b, String c){
+	   }
+	   
+	   
+	   public void makeMulChoiceGUI(String question,String a, String b, String c)
+	   {
+		   showButton();
 		   this.a.setText(a);
 		   this.b.setText(b);
 		   this.c.setText(c);
 		  
-		   
+		   chattext.hide();
 		   messageArea.setText(question);
 	   }
 	   
-	   public void makeShortAnswerGui(){
-		   
+	   public void makeShortAnswerGui(String question)
+	   {
+		   hidebutton();
+		   messageArea.setText(question);
+		   chattext.show();
 	   }
 	   
-	   public void makeTrueFalseGui(){
-		   
+	   public void makeTrueFalseGui(String question)
+	   {
+		   this.a.setText("True");
+		   this.b.setText("False");
+		   this.c.hide();
+		   messageArea.setText(question);
 	   }
 	   
-	   public void displayDoors() throws IOException{
+	   private void hidebutton() 
+	   {
+		this.a.hide();
+		this.b.hide();
+		this.c.hide();
+	   }
+	   
+	   private void showButton(){
+		   
+		   this.a.show();
+		   this.b.show();
+		   this.c.show();
+	   }
+
+
+
+	
+	   
+	   public void displayDoors() throws IOException
+	   {
 		   String path = "door.jpg";
 		   InputStream imgStream = make_GUI.class.getResourceAsStream(path);
 		   BufferedImage myImg = ImageIO.read(imgStream);
