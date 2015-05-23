@@ -63,7 +63,7 @@ public class Database
     }
   }
 
-  // Fisher–Yates shuffle
+  // Fisherï¿½Yates shuffle
   private void shuffle()
   {
     Random random = new Random();
