@@ -11,28 +11,63 @@ public class Question
   private String _opta;
   private String _optb;
   private String _optc;
-  private boolean _isMultipleChoice;
+  private String _questionType;
 
   public Question(int id, String question, String answer, String opta, String optb, String optc)
   {
     _id = id;
-    _question = question;
-    _answer = answer;
-    _opta = opta;
-    _optb = optb;
-    _optc = optc;
-    _isMultipleChoice = true;
+    _question = parseInput(question);
+    _answer = parseInput(answer);
+    _opta = parseInput(opta);
+    _optb = parseInput(optb);
+    _optc = parseInput(optc);
+    _questionType = "multiple_choice";
+  }
+
+  public Question(String question, String answer, String opta, String optb, String optc)
+  {
+    _id = -1;
+    _question = parseInput(question);
+    _answer = parseInput(answer);
+    _opta = parseInput(opta);
+    _optb = parseInput(optb);
+    _optc = parseInput(optc);
+    _questionType = "multiple_choice";
   }
 
   public Question(int id, String question, String answer)
   {
     _id = id;
-    _question = question;
-    _answer = answer;
+    _question = parseInput(question);
+    _answer = parseInput(answer);
     _opta = "";
     _optb = "";
     _optc = "";
-    _isMultipleChoice = false;
+   _questionType = checkType(answer);
+  }
+
+  public Question(String question, String answer)
+  {
+    _id = -1;
+    _question = parseInput(question);
+    _answer = parseInput(answer);
+    _opta = "";
+    _optb = "";
+    _optc = "";
+   _questionType = checkType(answer);
+  }
+
+  private String parseInput(String input)
+  {
+    return input.replaceAll("[^a-zA-Z0-9]+","");
+  }
+
+  private String checkType(String string)
+  {
+    if (string.equalsIgnoreCase("true") || string.equalsIgnoreCase("false") || string.equalsIgnoreCase("t") || string.equalsIgnoreCase("f"))
+      return "true_false";
+    else
+      return "short_answer";
   }
 
   public int getID()
@@ -65,8 +100,13 @@ public class Question
     return _optc;
   }
 
-  public boolean isMultipleChoice()
+  public String getType()
   {
-    return _isMultipleChoice;
+    return _questionType;
+  }
+
+  public String toString()
+  {
+    return _question;
   }
 }

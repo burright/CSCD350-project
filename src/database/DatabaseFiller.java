@@ -19,7 +19,7 @@ public class DatabaseFiller
     try
     {
       Class.forName("org.sqlite.JDBC");
-      connection = DriverManager.getConnection("jdbc:sqlite:questions.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:database/questions.db");
       connection.setAutoCommit(false);
     }
     catch (Exception e)
@@ -48,8 +48,9 @@ public class DatabaseFiller
 
   public static void parseInput(String input)
   {
+    input = input.replace("'","");
     String[] words = input.split(",");
-    String sql = "";
+    String sql;
     if (words.length == 2)
     {
       try (Statement statement = connection.createStatement())
@@ -64,7 +65,8 @@ public class DatabaseFiller
           sql = "INSERT INTO short_answer(question,answer) " +
             "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
 
-        statement.execute(sql);
+        statement.executeUpdate(sql);
+        connection.commit();
       }
       catch (Exception e)
       {
@@ -78,7 +80,8 @@ public class DatabaseFiller
         sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
           "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "','" + words[2] +
           "','" + words[3] + "','" + words[4] + "');";
-        statement.execute(sql);
+        statement.executeUpdate(sql);
+        connection.commit();
       } catch (Exception e)
       {
         e.printStackTrace();

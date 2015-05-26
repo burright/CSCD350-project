@@ -1,4 +1,5 @@
 import database.Database;
+import database.Question;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -9,16 +10,13 @@ import java.util.Scanner;
 public class DatabaseTester
 {
   public static Scanner scan;
-  public static Database multipleChoice;
-  public static Database shortAnswer;
-  public static Database trueFalse;
+  public static Database database;
 
   public static void main(String[] args)
   {
     scan = new Scanner(System.in);
-    multipleChoice = new Database("multiple_choice");
-    shortAnswer = new Database("short_answer");
-    trueFalse = new Database("true_false");
+    database = new Database();
+
     boolean quit = false;
 
     do
@@ -44,9 +42,7 @@ public class DatabaseTester
 
     }while (!quit);
 
-    multipleChoice.closeConnection();
-    shortAnswer.closeConnection();
-    trueFalse.closeConnection();
+    database.closeConnection();
   }
 
   public static void askQuestion()
@@ -81,7 +77,7 @@ public class DatabaseTester
         options[0] = scan.nextLine();
         options[1] = scan.nextLine();
         options[2] = scan.nextLine();
-        multipleChoice.addQuestion(question,answer,options);
+        database.addQuestion(new Question(question,answer,options[0],options[1],options[2]));
         break;
       case 2:
         System.out.print("Enter the question: ");
@@ -102,7 +98,7 @@ public class DatabaseTester
           }
           System.out.println("Enter true or false");
         }
-        trueFalse.addQuestion(question,answer);
+        database.addQuestion(new Question(question,answer));
         break;
       case 3:
         System.out.print("Enter the question: ");
@@ -110,7 +106,7 @@ public class DatabaseTester
         System.out.print("Enter the answer");
         answer = scan.nextLine();
 
-        shortAnswer.addQuestion(question,answer);
+        database.addQuestion(new Question(question,answer));
         break;
     }
   }
@@ -123,19 +119,24 @@ public class DatabaseTester
     switch (scan.nextInt())
     {
       case 1:
-        all = multipleChoice.getAll();
+        all = database.getAll("multiple_choice");
         for (String string: all)
           System.out.println(string);
         break;
       case 2:
-        all = trueFalse.getAll();
+        all = database.getAll("true_false");
         for (String string: all)
           System.out.println(string);
         break;
       case 3:
-        all = shortAnswer.getAll();
+        all = database.getAll("short_answer");
         for (String string: all)
           System.out.println(string);
+        break;
+      case 4:
+        all = database.getAll();
+          for (String  string: all)
+            System.out.println(string);
         break;
     }
   }
@@ -156,6 +157,7 @@ public class DatabaseTester
     System.out.println("1. Multiple Choice");
     System.out.println("2. True False");
     System.out.println("3. Short Answer");
+    System.out.println("4. All Databases");
   }
 
 }

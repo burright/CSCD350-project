@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.InputMismatchException;
 import java.util.Random;
 
 /**
@@ -11,7 +12,6 @@ import java.util.Random;
  */
 public class Database
 {
-  protected String DB_NAME;
   protected static final String TABLE_MULTI = "multiple_choice";
   protected static final String TABLE_TF = "true_false";
   protected static final String TABLE_SHORT = "short_answer";
@@ -23,12 +23,15 @@ public class Database
   protected static final String KEY_OPTC = "optc";
 
   protected Connection _connection = null;
-  protected int[] _randomQuestionArray;
-  protected int _questionIndex = 0;
+  protected int[] _randomMultipleChoiceArray;
+  protected int[] _randomTrueFalseArray;
+  protected int[] _randomShortAnswerArray;
+  protected int _multipleChoiceIndex = 0;
+  protected int _trueFalseIndex = 0;
+  protected int _shortAnswerIndex = 0;
 
-  public Database(String name)
+  public Database()
   {
-    DB_NAME = name;
     init();
   }
 
@@ -37,18 +40,31 @@ public class Database
     try
     {
       Class.forName("org.sqlite.JDBC");
-      _connection = DriverManager.getConnection("jdbc:sqlite:questions.db");
+      _connection = DriverManager.getConnection("jdbc:sqlite:database/questions.db");
       _connection.setAutoCommit(false);
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
-    int size = getSize();
-    _randomQuestionArray = new int[size];
+
+    int size = getSize(TABLE_MULTI);
+    _randomMultipleChoiceArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomQuestionArray[i] = i;
-    shuffle();
+      _randomMultipleChoiceArray[i] = i;
+    shuffle(TABLE_MULTI);
+
+    size = getSize(TABLE_TF);
+    _randomTrueFalseArray = new int[size];
+    for (int i = 0; i < size; i++)
+      _randomTrueFalseArray[i] = i;
+    shuffle(TABLE_TF);
+
+    size = getSize(TABLE_SHORT);
+    _randomShortAnswerArray = new int[size];
+    for (int i = 0; i < size; i++)
+      _randomShortAnswerArray[i] = i;
+    shuffle(TABLE_SHORT);
   }
 
   public void closeConnection()
@@ -63,27 +79,60 @@ public class Database
     }
   }
 
-  // Fisher�Yates shuffle
-  private void shuffle()
+  // Fisher-Yates shuffle
+  private void shuffle(String database)
   {
     Random random = new Random();
-    for (int i = _randomQuestionArray.length - 1; i > 0; i-- )
+    switch (database)
     {
-      int index = random.nextInt(i + 1);
-      int num = _randomQuestionArray[index];
-      _randomQuestionArray[index] = _randomQuestionArray[i];
-      _randomQuestionArray[i] = num;
+      case "multiple_choice":
+      {
+        for (int i = _randomMultipleChoiceArray.length - 1; i > 0; i--)
+        {
+          int index = random.nextInt(i + 1);
+          int num = _randomMultipleChoiceArray[index];
+          _randomMultipleChoiceArray[index] = _randomMultipleChoiceArray[i];
+          _randomMultipleChoiceArray[i] = num;
+        }
+        _multipleChoiceIndex = 0;
+        break;
+      }
+      case "true_false":
+      {
+        for (int i = _randomTrueFalseArray.length - 1; i > 0; i--)
+        {
+          int index = random.nextInt(i + 1);
+          int num = _randomTrueFalseArray[index];
+          _randomTrueFalseArray[index] = _randomTrueFalseArray[i];
+          _randomTrueFalseArray[i] = num;
+        }
+        _trueFalseIndex = 0;
+        break;
+      }
+      case "short_answer":
+      {
+        for (int i = _randomShortAnswerArray.length - 1; i > 0; i--)
+        {
+          int index = random.nextInt(i + 1);
+          int num = _randomShortAnswerArray[index];
+          _randomShortAnswerArray[index] = _randomShortAnswerArray[i];
+          _randomShortAnswerArray[i] = num;
+        }
+        _shortAnswerIndex = 0;
+        break;
+      }
+      default:
+        throw new InputMismatchException(database + ": invalid database");
     }
   }
 
-  public int getSize()
+  // returns the total number of questions in the database
+  public int getSize(String database)
   {
     // find the number of questions by looking at the last question's id
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT id FROM "+DB_NAME+" ORDER BY id DESC;"))
+         ResultSet resultSet = statement.executeQuery("SELECT id FROM "+database+" ORDER BY id DESC;"))
     {
-
-
       return resultSet.getInt(KEY_ID);
     }
     catch (Exception e)
@@ -93,15 +142,21 @@ public class Database
     return -1;
   }
 
-  public String[] getQuestions()
+  public int getAllSize()
+  {
+    return getSize(TABLE_MULTI)+getSize(TABLE_TF)+getSize(TABLE_SHORT);
+  }
+
+  // returns all questions as a string from all tables
+  public String[] getQuestions(String database)
   {
     String[] questions = null;
     int i = 0;
 
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT question FROM "+DB_NAME+";"))
+         ResultSet resultSet = statement.executeQuery("SELECT question FROM "+database+";"))
     {
-      questions = new String[getSize()];
+      questions = new String[getSize(database)];
 
       while (resultSet.next())
       {
@@ -118,71 +173,146 @@ public class Database
     return questions;
   }
 
-  public String getQuestion(int id)
+  // checks an answer with the question object
+  public boolean checkAnswer(String answer, Question question)
   {
-    String question = "";
-    try(Statement statement = _connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT question FROM " + DB_NAME + " WHERE id = " + id + ";"))
-    {
-      question = resultSet.getString(KEY_QUES);
+    return answer.equalsIgnoreCase(question.getQuestion());
+  }
 
-      statement.close();
-      resultSet.close();
+  // returns a specific question
+  private Question getQuestionTrueFalse(int id)
+  {
+    Question question = null;
+    try (Statement statement = _connection.createStatement();
+         ResultSet resultSet = statement.executeQuery("SELECT * FROM true_false WHERE id = "
+           + id + ";"))
+    {
+        question = new Question(id,
+          resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
+
     return question;
   }
 
-  public boolean checkAnswer(String answer, int id)
-  {
-    String question = getQuestion(id);
-    return answer.equalsIgnoreCase(question);
-  }
-
-  public Question getRandomQuestion()
+  private Question getQuestionMultipleChoice(int id)
   {
     Question question = null;
 
-    if (_questionIndex > _randomQuestionArray.length)
-      _questionIndex = 0;
-
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT * FROM " + DB_NAME
-      + " WHERE id = " + _randomQuestionArray[_questionIndex] + ";"))
+         ResultSet resultSet = statement.executeQuery("SELECT * FROM multiple_choice WHERE id = "
+           +id+ ";"))
     {
-      if (DB_NAME.equals("multiple_choice"))
-      {
-        question = new Question(_randomQuestionArray[_questionIndex], resultSet.getString(KEY_QUES),
+        question = new Question(id, resultSet.getString(KEY_QUES),
           resultSet.getString(KEY_ANS), resultSet.getString(KEY_OPTA), resultSet.getString(KEY_OPTB),
           resultSet.getString(KEY_OPTC));
-      }
-      else
-      {
-        question = new Question(_randomQuestionArray[_questionIndex], resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
-      }
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
 
-    _questionIndex++;
     return question;
   }
 
+  private Question getQuestionShortAnswer(int id)
+  {
+    Question question = null;
+    try (Statement statement = _connection.createStatement();
+         ResultSet resultSet = statement.executeQuery("SELECT * FROM short_answer WHERE id = "
+           + id + ";"))
+    {
+      question = new Question(id,
+        resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+
+    return question;
+  }
+
+  // returns a random question
+  public Question getRandomQuestion()
+  {
+    Random random = new Random();
+    int randomInt;
+    String database;
+
+    randomInt = random.nextInt(3);
+    switch (randomInt)
+    {
+      case 0:
+      {
+        database = TABLE_MULTI;
+        if (_multipleChoiceIndex > _randomMultipleChoiceArray.length)
+          shuffle(database);
+        _multipleChoiceIndex = 0;
+        return getQuestionMultipleChoice(_randomMultipleChoiceArray[_multipleChoiceIndex]);
+      }
+      case 1:
+      {
+        database = TABLE_TF;
+        if (_trueFalseIndex > _randomTrueFalseArray.length)
+          shuffle(database);
+        _trueFalseIndex = 0;
+        return getQuestionTrueFalse(_randomTrueFalseArray[_trueFalseIndex]);
+      }
+      case 3:
+      {
+        database = TABLE_SHORT;
+        if (_shortAnswerIndex > _randomShortAnswerArray.length)
+          shuffle(database);
+        _shortAnswerIndex = 0;
+        return getQuestionShortAnswer(_randomShortAnswerArray[_shortAnswerIndex]);
+      }
+      default:
+        throw new RuntimeException("Number " + randomInt + " was generated");
+    }
+  }
+
+  // returns all data from all tables as a string
+
   public String[] getAll()
+  {
+    int j = 0;
+    String[] questions = new String[getAllSize()];
+    String[] trueFalse = getAll(TABLE_TF);
+    String[] multipleChoice = getAll(TABLE_MULTI);
+    String[] shortAnswer = getAll(TABLE_SHORT);
+
+    for (int i = 0; i < trueFalse.length; i++)
+    {
+      questions[j++] = trueFalse[i];
+    }
+
+    for (int i = 0; i < multipleChoice.length; i++)
+    {
+      questions[j++] = multipleChoice[i];
+    }
+
+    for (int i = 0; i < shortAnswer.length; i++)
+    {
+      questions[j++] = shortAnswer[i];
+    }
+
+   return questions;
+  }
+
+  public String[] getAll(String database)
   {
     String[] questions = null;
     int i = 0;
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT * FROM "+DB_NAME+";"))
+         ResultSet resultSet = statement.executeQuery("SELECT * FROM "+database+";"))
     {
-      questions = new String[getSize()];
+      questions = new String[getSize(database)];
 
-      if (DB_NAME.equals("multiple_choice"))
+      if (database.equals(TABLE_MULTI))
       {
         while (resultSet.next())
         {
@@ -212,40 +342,46 @@ public class Database
     return questions;
   }
 
-  // For use only with table multiple_choice
-  public void addQuestion(String question, String answer, String[] options)
+  // inserts a question object into the database then shuffles the random question generator
+  public void addQuestion(Question question)
   {
-    if (!DB_NAME.equals("multiple_choice"))
-      addQuestion(question,answer);
+    String sql;
 
-    else
+    try (Statement statement = _connection.createStatement())
     {
-      try (Statement statement = _connection.createStatement())
+      switch (question.getType())
       {
-        String sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
-          "VALUES ('" + question + "','" + answer.toLowerCase() + "','" + options[0] + "','" + options[1] + "','" + options[2] + "');";
-        statement.execute(sql);
-      } catch (Exception e)
-      {
-        e.printStackTrace();
+        case TABLE_MULTI:
+        {
+          sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
+            "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
+            + question.getOptB() + "','" + question.getOptC() + "');";
+          break;
+        }
+        case TABLE_TF:
+        {
+          sql = "INSERT INTO true_false (question,answer) " +
+            "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+          break;
+        }
+        case TABLE_SHORT:
+        {
+          sql = "INSERT INTO short_answer (question,answer) " +
+            "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+          break;
+        }
+        default:
+          throw new RuntimeException(question.getType()+": invalid question type");
       }
-    }
-  }
+      statement.executeUpdate(sql);
+      _connection.commit();
 
-  public void addQuestion(String question, String answer)
-  {
-    if (DB_NAME.equals("multiple_choice"))
-      throw new RuntimeException("incorrect input for table 'multiple_choice'");
-
-    try ( Statement statement = _connection.createStatement())
-    {
-      String sql = "INSERT INTO "+DB_NAME+"(question,answer) " +
-        "VALUES ('"+question+"','"+answer.toLowerCase()+"')";
-      statement.execute(sql);
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
+
+    shuffle(question.getType());
   }
 }
