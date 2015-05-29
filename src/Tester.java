@@ -10,6 +10,9 @@ public class Tester {
 		
 		Mdriver.createMaze(new File("MazeInput.txt"));
 		
-		Mdriver.printMaze();
+		//Mdriver.printMaze();
+
+		Mdriver.traverseMaze();
+
 	}
 }

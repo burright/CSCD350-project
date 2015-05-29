@@ -31,7 +31,7 @@ public class make_GUI2 extends Frame implements ActionListener
 		
 	   public String player = "";
 	   
-	   public make_GUI()
+	   public make_GUI2()
 	   {
 		     /*
 		      area.setSize(800,400);

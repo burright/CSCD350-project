@@ -6,7 +6,8 @@ import java.io.*;
 public class MazeDriver {
 	
 	private Maze maze;
-	
+	private int curX,curY;
+
 	public MazeDriver()
 	{
 		maze = new Maze();
@@ -53,18 +54,59 @@ public class MazeDriver {
 		}
 	}
 	
-	public void printMaze()
-	{
-		System.out.println("maze is of dimention: "+maze.getX()+" "+maze.getY());
+	public void printMaze() {
+		System.out.println("maze is of dimention: " + maze.getX() + " " + maze.getY());
 
-		for(int i=0; i<maze.getX(); i++)
-		{
-			for(int j=0; j<maze.getY(); j++)
-			{
-				System.out.println("model.maze.Room index: "+i+" "+j);
-				maze.getRoom(i,j).printRoom();
+		for (int i = 0; i < maze.getX(); i++) {
+			for (int j = 0; j < maze.getY(); j++) {
+				System.out.println("model.maze.Room index: " + i + " " + j);
+				maze.getRoom(i, j).printRoom();
 				System.out.println();
 			}
 		}
+	}
+
+	public void traverseMaze()
+	{
+		Scanner fin = new Scanner(System.in);
+		String userIn = null;
+		curX = 1;
+		curY = 3;
+
+		while(curX != 3 || curY != 0)
+		{
+			System.out.println("model.maze.Room index: " + curX + " " + curY);
+			System.out.println("Current Room:");
+			maze.getRoom(curX,curY).printRoom();
+			System.out.println();
+			System.out.println("Which way would you like to go?");
+
+			do {
+
+				userIn = fin.nextLine();
+				if(!maze.getRoom(curX,curY).doorIsNull(userIn))
+					System.out.println("Please enter a valid door.");
+
+			}while(!maze.getRoom(curX,curY).doorIsNull(userIn));
+
+			switch(userIn)
+			{
+				case "North":
+					curX--;
+					break;
+				case "South":
+					curX++;
+					break;
+				case "East":
+					curY++;
+					break;
+				case "West":
+					curY--;
+					break;
+			}
+
+		}
+
+		System.out.println("Congratulations you reached the end of the maze!");
 	}
 }

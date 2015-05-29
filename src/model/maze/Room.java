@@ -23,4 +23,21 @@ public class Room {
 		if(W_door.exists)
 			System.out.println("West model.maze.Door");
 	}
+
+	public boolean doorIsNull(String door)
+	{
+		switch(door)
+		{
+			case "North":
+				return N_door.exists;
+			case "South":
+				return S_door.exists;
+			case "East":
+				return E_door.exists;
+			case "West":
+				return W_door.exists;
+			default:
+				return false;
+		}
+	}
 }
