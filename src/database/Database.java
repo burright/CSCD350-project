@@ -1,9 +1,6 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.Random;
 
@@ -43,9 +40,15 @@ public class Database
       _connection = DriverManager.getConnection("jdbc:sqlite:database/questions.db");
       _connection.setAutoCommit(false);
     }
-    catch (Exception e)
+    catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
+      System.exit(0);
+    }
+    catch (SQLException e)
+    {
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
+      System.exit(0);
     }
 
     int size = getSize(TABLE_MULTI);
@@ -73,9 +76,10 @@ public class Database
     {
       _connection.close();
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
-      e.printStackTrace();
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
   }
 
@@ -135,9 +139,10 @@ public class Database
     {
       return resultSet.getInt(KEY_ID);
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
-      e.printStackTrace();
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
     return -1;
   }
@@ -160,15 +165,16 @@ public class Database
 
       while (resultSet.next())
       {
-        questions[i++] = resultSet.getString(KEY_ANS);
+        questions[i++] = resultSet.getString(KEY_QUES);
       }
 
       statement.close();
       resultSet.close();
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
-      e.printStackTrace();
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
     return questions;
   }
@@ -180,7 +186,7 @@ public class Database
   }
 
   // returns a specific question
-  private Question getQuestionTrueFalse(int id)
+  public Question getQuestionTrueFalse(int id)
   {
     Question question = null;
     try (Statement statement = _connection.createStatement();
@@ -190,15 +196,17 @@ public class Database
         question = new Question(id,
           resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       e.printStackTrace();
+      System.exit(0);
     }
 
     return question;
   }
 
-  private Question getQuestionMultipleChoice(int id)
+  public Question getQuestionMultipleChoice(int id)
   {
     Question question = null;
 
@@ -210,15 +218,17 @@ public class Database
           resultSet.getString(KEY_ANS), resultSet.getString(KEY_OPTA), resultSet.getString(KEY_OPTB),
           resultSet.getString(KEY_OPTC));
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       e.printStackTrace();
+      System.exit(0);
     }
 
     return question;
   }
 
-  private Question getQuestionShortAnswer(int id)
+  public Question getQuestionShortAnswer(int id)
   {
     Question question = null;
     try (Statement statement = _connection.createStatement();
@@ -228,9 +238,11 @@ public class Database
       question = new Question(id,
         resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       e.printStackTrace();
+      System.exit(0);
     }
 
     return question;
@@ -262,7 +274,7 @@ public class Database
         _trueFalseIndex = 0;
         return getQuestionTrueFalse(_randomTrueFalseArray[_trueFalseIndex]);
       }
-      case 3:
+      case 2:
       {
         database = TABLE_SHORT;
         if (_shortAnswerIndex > _randomShortAnswerArray.length)
@@ -335,9 +347,10 @@ public class Database
         }
       }
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
-      e.printStackTrace();
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
     return questions;
   }
@@ -377,9 +390,10 @@ public class Database
       _connection.commit();
 
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
-      e.printStackTrace();
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
 
     shuffle(question.getType());

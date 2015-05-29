@@ -1,16 +1,14 @@
 package view;
 
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 public class make_GUI2 extends Frame implements ActionListener 
 {
@@ -31,7 +29,7 @@ public class make_GUI2 extends Frame implements ActionListener
 		
 	   public String player = "";
 	   
-	   public make_GUI()
+	   public make_GUI2()
 	   {
 		     /*
 		      area.setSize(800,400);

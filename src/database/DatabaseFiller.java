@@ -2,6 +2,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -22,9 +23,15 @@ public class DatabaseFiller
       connection = DriverManager.getConnection("jdbc:sqlite:database/questions.db");
       connection.setAutoCommit(false);
     }
-    catch (Exception e)
+    catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+    catch (SQLException e)
+    {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
 
     System.out.println("Database will store multiple choice, short answer (one word), true/false");
@@ -68,9 +75,10 @@ public class DatabaseFiller
         statement.executeUpdate(sql);
         connection.commit();
       }
-      catch (Exception e)
+      catch (SQLException e)
       {
-        e.printStackTrace();
+        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        System.exit(0);
       }
     }
     else if (words.length == 5)
@@ -82,9 +90,11 @@ public class DatabaseFiller
           "','" + words[3] + "','" + words[4] + "');";
         statement.executeUpdate(sql);
         connection.commit();
-      } catch (Exception e)
+      }
+      catch (SQLException e)
       {
-        e.printStackTrace();
+        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        System.exit(0);
       }
     }
     else

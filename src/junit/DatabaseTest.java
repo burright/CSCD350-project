@@ -1,6 +1,7 @@
 package junit;
 
 import database.Database;
+import database.Question;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,19 +58,26 @@ public class DatabaseTest
   @Test
   public void testCheckAnswer() throws Exception
   {
-
+    database.checkAnswer("cisco",database.getQuestionMultipleChoice(1));
   }
 
   @Test
   public void testGetRandomQuestion() throws Exception
   {
+    Question question1 = database.getRandomQuestion();
+    Question question2 = database.getRandomQuestion();
+    Question question3 = database.getRandomQuestion();
+    Question question4 = database.getRandomQuestion();
 
+    System.out.println(question1+"\n"+question2+"\n"+question3+"\n"+question4);
   }
 
   @Test
   public void testGetAll() throws Exception
   {
-
+    String[] all = database.getAll();
+    for (String string: all)
+      System.out.println(string);
   }
 
   @Test
