@@ -51,15 +51,15 @@ public class doorGUI extends makeGUI {
 		*/
 		//Create buttons
 		JButton btn1 = new JButton("Door Locked");
-		btn1.setBounds(94, 326, 103, 23);
+		btn1.setBounds(69, 326, 149, 23);
 		frame.getContentPane().add(btn1);
 		
 		JButton btn2 = new JButton("Open Door");
-		btn2.setBounds(311, 326, 103, 23);
+		btn2.setBounds(287, 326, 149, 23);
 		frame.getContentPane().add(btn2);
 		
 		JButton btn3 = new JButton("Door Locked");
-		btn3.setBounds(530, 326, 103, 23);
+		btn3.setBounds(505, 326, 149, 23);
 		frame.getContentPane().add(btn3);
 		
 		
