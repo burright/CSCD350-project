@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 
 public abstract class makeGUI{
 	JFrame frame;
-	
+
 	/**
 	 * Create the application.
 	 */
