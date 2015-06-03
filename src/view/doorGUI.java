@@ -14,26 +14,26 @@ import javax.swing.ImageIcon;
 
 public class doorGUI  //rename to roomGUI
 {
-	private static Door n,s,e,w; //make private
+	private static Door n,s,e,w;
 	private static JFrame frame;
 	private static DoorElement nDoor,sDoor,eDoor,wDoor;
 
 	public void twoDoor()
 	{
-
+   //set two door layout
 	}
 	
 	public void threeDoor()
 	{
-
+   //set three door layout
 	}
 	
 	public void fourDoor()
 	{
-
+   //set four door layout
 	}
 	
-	//re-analyze doors and lock doors
+	//re-analyze doors and newly locked doors
 	public static void refreshDoors(Room room){
 		analyzeRoom(room);
 		if(n.exists && n.locked()){
@@ -64,11 +64,12 @@ public class doorGUI  //rename to roomGUI
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		
 	
-		int c = analyzeRoom(room);
+		int c = analyzeRoom(room); //count doors and assign objects
+      
 		//set layout to hold number of doors
-		switch(c){
+		switch(c)
+      {
 			
 		case 2:
 			twoDoor();
@@ -94,18 +95,19 @@ public class doorGUI  //rename to roomGUI
 		if(room.doorIsNull("South"))
 		{
 			s = room.getDoor("South");
-			sDoor = makeDoor(n);
+			sDoor = makeDoor(s);
 			count++;
 		}
 		if(room.doorIsNull("East"))
 		{
 			e = room.getDoor("East");
-			eDoor = makeDoor(n);
+			eDoor = makeDoor(e);
 			count++;
 		}
-		if(room.doorIsNull("West")){
+		if(room.doorIsNull("West"))
+      {
 			w = room.getDoor("West");
-			wDoor = makeDoor(n);
+			wDoor = makeDoor(w);
 			count++;
 		}
 		return count;
@@ -122,9 +124,10 @@ public class doorGUI  //rename to roomGUI
 				 btn = new JButton("Open Door");
 					
 				 try {
-					door1 = new JLabel(new ImageIcon(new URL("//http://i.imgur.com/o7UWme9.jpg")));
-				} catch (MalformedURLException e) {
-						// TODO Auto-generated catch block
+					door1 = new JLabel(new ImageIcon(new URL("//http://i.imgur.com/o7UWme9.jpg"))); //unlocked
+				} 
+            catch (MalformedURLException e)
+            {
 						e.printStackTrace();
 				}
 				// door1.setBounds(287, 11, 149, 338);
@@ -135,10 +138,12 @@ public class doorGUI  //rename to roomGUI
 			{
 				btn = new JButton("Door Locked");
 				
-				try {
-					door1 = new JLabel(new ImageIcon(new URL("//http://i.imgur.com/9Iyt73S.jpg")));
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
+				try 
+            {
+					door1 = new JLabel(new ImageIcon(new URL("//http://i.imgur.com/9Iyt73S.jpg"))); //locked
+				} 
+            catch (MalformedURLException e) 
+            {
 					e.printStackTrace();
 				}
 				//door1.setBounds(287, 11, 149, 338);
@@ -151,7 +156,7 @@ public class doorGUI  //rename to roomGUI
 		}
 		else
 		{
-			return null;
+			return null; //do nothing
 		}
 		
 	}
@@ -211,7 +216,8 @@ public class doorGUI  //rename to roomGUI
 		*/
 	}
 
-	public void show() {
+	public void show() 
+   {
 		this.frame.setVisible(true);
 	}
 	public void hide()
