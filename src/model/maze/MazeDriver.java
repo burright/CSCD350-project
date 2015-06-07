@@ -44,7 +44,7 @@ public class MazeDriver {
 				}
 			}
 			
-			this.maze = new Maze(temp_Maze,x,y);
+			this.maze = new Maze(temp_Maze,x,y,3,0);
 			fin.close();
 		}
 		catch(FileNotFoundException e)
@@ -66,7 +66,7 @@ public class MazeDriver {
 		}
 	}
 
-	public void traverseMaze()
+	public boolean traverseMaze()
 	{
 		Scanner fin = new Scanner(System.in);
 		String userIn = null;
@@ -75,8 +75,7 @@ public class MazeDriver {
 
 		while(curX != 3 || curY != 0)
 		{
-			System.out.println("model.maze.Room index: " + curX + " " + curY);
-			System.out.println("Current Room:");
+			System.out.println("Current Room Has:");
 			maze.getRoom(curX,curY).printRoom();
 			System.out.println();
 			System.out.println("Which way would you like to go?");
@@ -84,6 +83,7 @@ public class MazeDriver {
 			do {
 
 				userIn = fin.nextLine();
+				System.out.println();
 				if(!maze.getRoom(curX,curY).doorIsNull(userIn))
 					System.out.println("Please enter a valid door.");
 
@@ -106,7 +106,6 @@ public class MazeDriver {
 			}
 
 		}
-
-		System.out.println("Congratulations you reached the end of the maze!");
+		return true;
 	}
 }

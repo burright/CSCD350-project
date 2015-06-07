@@ -12,6 +12,11 @@ public class Door {
 		this.locked = true;
 		this.permlocked = false;
 	}
+
+	public boolean isPermLocked()
+	{
+		return permlocked;
+	}
 	
 	//Permanently lock the door because question was answered incorrectly
 	public void lock()

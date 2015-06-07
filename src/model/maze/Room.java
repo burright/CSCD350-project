@@ -2,7 +2,7 @@ package model.maze;
 
 public class Room {
 
-	private Door N_door,S_door,E_door,W_door;
+	public Door N_door,S_door,E_door,W_door;
 	
 	public Room(int N_door,int S_door,int E_door,int W_door)
 	{
@@ -15,13 +15,13 @@ public class Room {
 	public void printRoom()
 	{
 		if(N_door.exists)
-			System.out.println("North model.maze.Door");
+			System.out.println("North Door");
 		if(S_door.exists)
-			System.out.println("South model.maze.Door");
+			System.out.println("South Door");
 		if(E_door.exists)
-			System.out.println("East model.maze.Door");
+			System.out.println("East Door");
 		if(W_door.exists)
-			System.out.println("West model.maze.Door");
+			System.out.println("West Door");
 	}
 
 	public boolean doorIsNull(String door)
@@ -38,6 +38,25 @@ public class Room {
 				return W_door.exists;
 			default:
 				return false;
+		}
+	}
+
+	public void lockDoor(String door)
+	{
+		switch(door)
+		{
+			case "North":
+				N_door.lock();
+				break;
+			case "South":
+				S_door.lock();
+				break;
+			case "East":
+				E_door.lock();
+				break;
+			case "West":
+				W_door.lock();
+				break;
 		}
 	}
 }

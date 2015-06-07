@@ -9,10 +9,18 @@ public class Tester {
 		MazeDriver Mdriver = new MazeDriver();
 		
 		Mdriver.createMaze(new File("MazeInput.txt"));
-		
+
 		//Mdriver.printMaze();
 
-		Mdriver.traverseMaze();
+		boolean completed = Mdriver.traverseMaze();
+		if(completed == true)
+		{
+			System.out.println("Congratulations you reached the end of the maze!");
+		}
+		else
+		{
+			System.out.println("You've lost trivia maze!");
+		}
 
 	}
 }
