@@ -59,4 +59,21 @@ public class Room {
 				break;
 		}
 	}
+
+	public Door getDoor(String door)
+	{
+		switch(door)
+		{
+			case "North":
+				return N_door;
+			case "South":
+				return S_door;
+			case "East":
+				return E_door;
+			case "West":
+				return W_door;
+			default:
+				return null;
+		}
+	}
 }

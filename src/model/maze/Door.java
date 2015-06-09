@@ -23,4 +23,14 @@ public class Door {
 	{
 		this.permlocked = true;
 	}
+
+	public boolean getLocked()
+	{
+		return locked;
+	}
+
+	public boolean getPermLocked()
+	{
+		return permlocked;
+	}
 }
