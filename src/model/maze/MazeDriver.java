@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import view.*;
+import database.*;
 
 public class MazeDriver
 {
 
+  private Database database = new Database();
   private Maze maze;
   private int curX, curY;
 
@@ -77,39 +79,104 @@ public class MazeDriver
 
     Scanner fin = new Scanner(System.in);
     String userIn = null;
+    int correct;
+    String curDirection;
     curX = 1;//start x coordinate
     curY = 3;//start y coordinate
 
 
     while (curX != 3 || curY != 0) {
 
-      Room curroom = maze.getRoom(curX, curY);
-      doorGUI doorWindow = new doorGUI(curroom, curroom.getNumDoors());
+      do {
 
-      EventQueue.invokeLater(new Runnable() {
-        public void run() {
-          try {
+        correct = 0;
 
-            doorWindow.show();
+        Room curroom = maze.getRoom(curX, curY);
+        doorGUI doorWindow = new doorGUI(curroom, curroom.getNumDoors());
 
-          } catch (Exception e) {
-            e.printStackTrace();
+        EventQueue.invokeLater(new Runnable() {
+          public void run() {
+            try {
+
+              doorWindow.show();
+
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
           }
-        }
-      });
+        });
 
-      while(doorWindow.getDoor()==null)
-      {
+        while (doorWindow.getDoor() == null) {
           System.out.print("");
-      }
+        }
+
+        curDirection = doorWindow.getDoor();
+        System.out.println(curDirection);
+
+        Question curQuestion = database.getRandomQuestion();
+        System.out.println(curQuestion.getQuestion());
+        System.out.println(curQuestion.getAnswer());
 
 
+        if (curQuestion.getType().equals("short_answer")) {
+          shortAnswerGUI saWindow = new shortAnswerGUI(curQuestion);
+          EventQueue.invokeLater(new Runnable() {
+            public void run() {
+              try {
 
-      String curDirection = doorWindow.getDoor();
-      System.out.println(curDirection);
+                saWindow.show();
 
-      switch (curDirection)
-      {
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+            }
+          });
+
+          while (saWindow.getAnswer() == 0) {
+            System.out.print("");
+          }
+          correct = saWindow.getAnswer();
+        } else if (curQuestion.getType().equals("true_false")) {
+          trueFalseGUI tfWindow = new trueFalseGUI(curQuestion);
+          EventQueue.invokeLater(new Runnable() {
+            public void run() {
+              try {
+
+                tfWindow.show();
+
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+            }
+          });
+
+          while (tfWindow.getAnswer() == 0) {
+            System.out.print("");
+          }
+          correct = tfWindow.getAnswer();
+        } else if (curQuestion.getType().equals("multiple_choice")) {
+          multiChoiceGUI mcWindow = new multiChoiceGUI(curQuestion);
+          EventQueue.invokeLater(new Runnable() {
+            public void run() {
+              try {
+
+                mcWindow.show();
+
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+            }
+          });
+
+          while (mcWindow.getAnswer() == 0) {
+            System.out.print("");
+          }
+          correct = mcWindow.getAnswer();
+        }
+
+      } while (correct != 1);
+
+      switch (curDirection) {
         case "North":
           curX--;
           break;
@@ -123,7 +190,6 @@ public class MazeDriver
           curY--;
           break;
       }
-
     }
     return true;
   }

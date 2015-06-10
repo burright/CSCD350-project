@@ -2,11 +2,26 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import database.*;
 
 public class trueFalseGUI extends makeGUI
 {
-  public trueFalseGUI()
+
+  private int answer = 0;//0 means not answered, 1 means correct, 2 means incorrect
+  private Question question;
+
+  public int getAnswer()
   {
+    return this.answer;
+  }
+  public void setAnswer(int answer)
+  {
+    this.answer = answer;
+  }
+
+  public trueFalseGUI(Question question)
+  {
+    this.question = question;
 
     frame = new JFrame();
     frame.setTitle("Trivia");
@@ -25,10 +40,18 @@ public class trueFalseGUI extends makeGUI
 
     JTextPane txtpnAtQuoInsolens = new JTextPane();
     txtpnAtQuoInsolens.setBackground(SystemColor.menu);
-    txtpnAtQuoInsolens.setText("At quo insolens intellegat. Veritus evertitur scripserit ex eos. In magna dolor regione nam. Eirmod oblique repudiandae ea est, in quo postea percipitur. Sea labores temporibus dissentiet et, ex has unum primis prodesset.");
+    txtpnAtQuoInsolens.setText(question.getQuestion());
     txtpnAtQuoInsolens.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 11));
     txtpnAtQuoInsolens.setBounds(120, 83, 440, 80);
     frame.getContentPane().add(txtpnAtQuoInsolens);
 
+  }
+
+  public void show() {
+    frame.setVisible(true);
+
+  }
+  public void hide() {
+    frame.setVisible(false);
   }
 }

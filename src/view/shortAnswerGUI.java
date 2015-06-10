@@ -2,11 +2,26 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import database.*;
 
 public class shortAnswerGUI extends makeGUI
 {
-  public shortAnswerGUI()
+
+  private int answer = 0;//0 means not answered, 1 means correct, 2 means incorrect
+  private Question question;
+
+  public int getAnswer()
   {
+    return this.answer;
+  }
+  public void setAnswer(int answer)
+  {
+    this.answer = answer;
+  }
+
+  public shortAnswerGUI(Question question)
+  {
+    this.question = question;
 
     JTextField textField;
 
@@ -17,7 +32,7 @@ public class shortAnswerGUI extends makeGUI
 
     JTextPane txtpnWhatDoesIt = new JTextPane();
     txtpnWhatDoesIt.setBackground(SystemColor.menu);
-    txtpnWhatDoesIt.setText("What does it mean for a bowler to score a turkey?");
+    txtpnWhatDoesIt.setText(question.getQuestion());
     txtpnWhatDoesIt.setBounds(233, 189, 336, 77);
     frame.getContentPane().add(txtpnWhatDoesIt);
 
@@ -31,4 +46,11 @@ public class shortAnswerGUI extends makeGUI
     textField.setColumns(10);
   }
 
+  public void show() {
+    frame.setVisible(true);
+
+  }
+  public void hide() {
+    frame.setVisible(false);
+  }
 }
