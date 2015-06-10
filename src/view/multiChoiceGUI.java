@@ -1,15 +1,32 @@
-//package view;
+package view;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class multiChoiceGUI //extends makeGUI
+import database.*;
+
+public class multiChoiceGUI extends makeGUI
 {
 	
 	JFrame frame;
-  public multiChoiceGUI(String question, String a, String b, String c)
+    private int answer = 0;//0 means not answered, 1 means correct, 2 means incorrect
+    private Question question;
+
+  public int getAnswer()
+{
+  return this.answer;
+}
+  public void setAnswer(int answer)
   {
+    this.answer = answer;
+  }
+
+  public multiChoiceGUI(Question question)
+  {
+    this.question = question;
 
     frame = new JFrame();
     frame.setTitle("Trivia");
@@ -24,17 +41,17 @@ public class multiChoiceGUI //extends makeGUI
 
     JTextPane questionTxt = new JTextPane();
     questionTxt.setBackground(SystemColor.menu);
-    questionTxt.setText("This is where a long question would go that comes in as a string from data base. It also should continue to the next line. Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah");
+    questionTxt.setText(question.getQuestion());
     questionTxt.setBounds(104, 96, 565, 84);
     frame.getContentPane().add(questionTxt);
 
     JTextPane aTxt = new JTextPane();
-    aTxt.setText("Answer A will go here");
+    aTxt.setText(question.getOptA());
     aTxt.setBounds(101, 225, 146, 45);
     frame.getContentPane().add(aTxt);
 
     JTextPane bTxt = new JTextPane();
-    bTxt.setText("Answer B will go here");
+    bTxt.setText(question.getOptB());
     bTxt.setBounds(319, 225, 146, 45);
     frame.getContentPane().add(bTxt);
 
@@ -44,7 +61,7 @@ public class multiChoiceGUI //extends makeGUI
     frame.getContentPane().add(btnB);
 
     JTextPane cTxt = new JTextPane();
-    cTxt.setText("Answer C will go here");
+    cTxt.setText(question.getOptC());
     cTxt.setBounds(523, 225, 146, 45);
     frame.getContentPane().add(cTxt);
 
@@ -55,6 +72,7 @@ public class multiChoiceGUI //extends makeGUI
 
 
   }
+
 public void show() {
 	frame.setVisible(true);
 	
