@@ -78,7 +78,7 @@ public class Database
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
   }
@@ -135,13 +135,13 @@ public class Database
   {
     // find the number of questions by looking at the last question's id
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT id FROM "+database+" ORDER BY id DESC;"))
+         ResultSet resultSet = statement.executeQuery("SELECT id FROM " + database + " ORDER BY id DESC;"))
     {
       return resultSet.getInt(KEY_ID);
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
     return -1;
@@ -149,7 +149,7 @@ public class Database
 
   public int getAllSize()
   {
-    return getSize(TABLE_MULTI)+getSize(TABLE_TF)+getSize(TABLE_SHORT);
+    return getSize(TABLE_MULTI) + getSize(TABLE_TF) + getSize(TABLE_SHORT);
   }
 
   // returns all questions as a string from all tables
@@ -159,7 +159,7 @@ public class Database
     int i = 0;
 
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT question FROM "+database+";"))
+         ResultSet resultSet = statement.executeQuery("SELECT question FROM " + database + ";"))
     {
       questions = new String[getSize(database)];
 
@@ -173,7 +173,7 @@ public class Database
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
     return questions;
@@ -191,14 +191,14 @@ public class Database
     Question question = null;
     try (Statement statement = _connection.createStatement();
          ResultSet resultSet = statement.executeQuery("SELECT * FROM true_false WHERE id = "
-           + id + ";"))
+                 + id + ";"))
     {
-        question = new Question(id,
-          resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
+      question = new Question(id,
+              resultSet.getString(KEY_QUES), resultSet.getString(KEY_ANS));
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       e.printStackTrace();
       System.exit(0);
     }
@@ -212,15 +212,15 @@ public class Database
 
     try (Statement statement = _connection.createStatement();
          ResultSet resultSet = statement.executeQuery("SELECT * FROM multiple_choice WHERE id = "
-           +id+ ";"))
+                 + id + ";"))
     {
-        question = new Question(id, resultSet.getString(KEY_QUES),
-          resultSet.getString(KEY_ANS), resultSet.getString(KEY_OPTA), resultSet.getString(KEY_OPTB),
-          resultSet.getString(KEY_OPTC));
+      question = new Question(id, resultSet.getString(KEY_QUES),
+              resultSet.getString(KEY_ANS), resultSet.getString(KEY_OPTA), resultSet.getString(KEY_OPTB),
+              resultSet.getString(KEY_OPTC));
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       e.printStackTrace();
       System.exit(0);
     }
@@ -233,14 +233,14 @@ public class Database
     Question question = null;
     try (Statement statement = _connection.createStatement();
          ResultSet resultSet = statement.executeQuery("SELECT * FROM short_answer WHERE id = "
-           + id + ";"))
+                 + id + ";"))
     {
       question = new Question(id,
-        resultSet.getString(KEY_QUES),resultSet.getString(KEY_ANS));
+              resultSet.getString(KEY_QUES), resultSet.getString(KEY_ANS));
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       e.printStackTrace();
       System.exit(0);
     }
@@ -312,7 +312,7 @@ public class Database
       questions[j++] = shortAnswer[i];
     }
 
-   return questions;
+    return questions;
   }
 
   public String[] getAll(String database)
@@ -320,7 +320,7 @@ public class Database
     String[] questions = null;
     int i = 0;
     try (Statement statement = _connection.createStatement();
-         ResultSet resultSet = statement.executeQuery("SELECT * FROM "+database+";"))
+         ResultSet resultSet = statement.executeQuery("SELECT * FROM " + database + ";"))
     {
       questions = new String[getSize(database)];
 
@@ -336,20 +336,19 @@ public class Database
           questions[i++] = question + ", " + answer + ", " + opta + ", " + optb + ", " + optc;
         }
       }
-
       else
       {
         while (resultSet.next())
         {
           String question = resultSet.getString(KEY_QUES);
           String answer = resultSet.getString(KEY_ANS);
-          questions[i++] = question+", "+answer;
+          questions[i++] = question + ", " + answer;
         }
       }
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
     return questions;
@@ -367,24 +366,24 @@ public class Database
         case TABLE_MULTI:
         {
           sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
-            "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
-            + question.getOptB() + "','" + question.getOptC() + "');";
+                  "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
+                  + question.getOptB() + "','" + question.getOptC() + "');";
           break;
         }
         case TABLE_TF:
         {
           sql = "INSERT INTO true_false (question,answer) " +
-            "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+                  "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
           break;
         }
         case TABLE_SHORT:
         {
           sql = "INSERT INTO short_answer (question,answer) " +
-            "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+                  "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
           break;
         }
         default:
-          throw new RuntimeException(question.getType()+": invalid question type");
+          throw new RuntimeException(question.getType() + ": invalid question type");
       }
       statement.executeUpdate(sql);
       _connection.commit();
@@ -392,7 +391,7 @@ public class Database
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
 

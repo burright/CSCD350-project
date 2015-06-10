@@ -25,12 +25,12 @@ public class DatabaseFiller
     }
     catch (ClassNotFoundException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
     catch (SQLException e)
     {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
     }
 
@@ -55,7 +55,7 @@ public class DatabaseFiller
 
   public static void parseInput(String input)
   {
-    input = input.replace("'","");
+    input = input.replace("'", "");
     String[] words = input.split(",");
     String sql;
     if (words.length == 2)
@@ -63,21 +63,21 @@ public class DatabaseFiller
       try (Statement statement = connection.createStatement())
       {
         if (words[1].equalsIgnoreCase("true") || words[1].equalsIgnoreCase("false")
-          || words[1].equalsIgnoreCase("t") || words[1].equalsIgnoreCase("f"))
+                || words[1].equalsIgnoreCase("t") || words[1].equalsIgnoreCase("f"))
         {
           sql = "INSERT INTO true_false(question,answer) " +
-            "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
+                  "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
         }
         else
           sql = "INSERT INTO short_answer(question,answer) " +
-            "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
+                  "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
 
         statement.executeUpdate(sql);
         connection.commit();
       }
       catch (SQLException e)
       {
-        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        System.err.println(e.getClass().getName() + ": " + e.getMessage());
         System.exit(0);
       }
     }
@@ -86,14 +86,14 @@ public class DatabaseFiller
       try (Statement statement = connection.createStatement())
       {
         sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
-          "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "','" + words[2] +
-          "','" + words[3] + "','" + words[4] + "');";
+                "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "','" + words[2] +
+                "','" + words[3] + "','" + words[4] + "');";
         statement.executeUpdate(sql);
         connection.commit();
       }
       catch (SQLException e)
       {
-        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        System.err.println(e.getClass().getName() + ": " + e.getMessage());
         System.exit(0);
       }
     }

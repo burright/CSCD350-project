@@ -43,7 +43,7 @@ public class Question
     _opta = "";
     _optb = "";
     _optc = "";
-   _questionType = checkType(answer);
+    _questionType = checkType(answer);
   }
 
   public Question(String question, String answer)
@@ -54,12 +54,12 @@ public class Question
     _opta = "";
     _optb = "";
     _optc = "";
-   _questionType = checkType(answer);
+    _questionType = checkType(answer);
   }
 
   private String parseInput(String input)
   {
-    return input.replaceAll("[^a-zA-Z0-9]+","");
+    return input.replaceAll("[^a-zA-Z0-9]+", "");
   }
 
   private String checkType(String string)

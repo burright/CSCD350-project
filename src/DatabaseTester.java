@@ -40,7 +40,7 @@ public class DatabaseTester
           break;
       }
 
-    }while (!quit);
+    } while (!quit);
 
     database.closeConnection();
   }
@@ -77,7 +77,7 @@ public class DatabaseTester
         options[0] = scan.nextLine();
         options[1] = scan.nextLine();
         options[2] = scan.nextLine();
-        database.addQuestion(new Question(question,answer,options[0],options[1],options[2]));
+        database.addQuestion(new Question(question, answer, options[0], options[1], options[2]));
         break;
       case 2:
         System.out.print("Enter the question: ");
@@ -98,7 +98,7 @@ public class DatabaseTester
           }
           System.out.println("Enter true or false");
         }
-        database.addQuestion(new Question(question,answer));
+        database.addQuestion(new Question(question, answer));
         break;
       case 3:
         System.out.print("Enter the question: ");
@@ -106,7 +106,7 @@ public class DatabaseTester
         System.out.print("Enter the answer");
         answer = scan.nextLine();
 
-        database.addQuestion(new Question(question,answer));
+        database.addQuestion(new Question(question, answer));
         break;
     }
   }
@@ -120,23 +120,23 @@ public class DatabaseTester
     {
       case 1:
         all = database.getAll("multiple_choice");
-        for (String string: all)
+        for (String string : all)
           System.out.println(string);
         break;
       case 2:
         all = database.getAll("true_false");
-        for (String string: all)
+        for (String string : all)
           System.out.println(string);
         break;
       case 3:
         all = database.getAll("short_answer");
-        for (String string: all)
+        for (String string : all)
           System.out.println(string);
         break;
       case 4:
         all = database.getAll();
-          for (String  string: all)
-            System.out.println(string);
+        for (String string : all)
+          System.out.println(string);
         break;
     }
   }

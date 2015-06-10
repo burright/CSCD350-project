@@ -26,12 +26,11 @@ public class DatabaseTest
   }
 
   @Test
-  public void testGetSize() throws Exception
+  public void testGetSize()
   {
     System.out.println(database.getSize("true_false"));
     System.out.println(database.getSize("short_answer"));
     System.out.println(database.getSize("multiple_choice"));
-    System.out.println(database.getSize("blah"));
   }
 
   @Test
@@ -43,22 +42,22 @@ public class DatabaseTest
   @Test
   public void testGetQuestions() throws Exception
   {
-    String[] trueFalse =  database.getQuestions("true_false");
+    String[] trueFalse = database.getQuestions("true_false");
     String[] multipleChoice = database.getQuestions("multiple_choice");
     String[] shortAnswer = database.getQuestions("short_answer");
 
-    for (String string: trueFalse)
+    for (String string : trueFalse)
       System.out.println(string);
-    for (String string: multipleChoice)
+    for (String string : multipleChoice)
       System.out.println(string);
-    for (String string: shortAnswer)
+    for (String string : shortAnswer)
       System.out.println(string);
   }
 
   @Test
   public void testCheckAnswer() throws Exception
   {
-    database.checkAnswer("cisco",database.getQuestionMultipleChoice(1));
+    database.checkAnswer("cisco", database.getQuestionMultipleChoice(1));
   }
 
   @Test
@@ -69,14 +68,14 @@ public class DatabaseTest
     Question question3 = database.getRandomQuestion();
     Question question4 = database.getRandomQuestion();
 
-    System.out.println(question1+"\n"+question2+"\n"+question3+"\n"+question4);
+    System.out.println(question1 + "\n" + question2 + "\n" + question3 + "\n" + question4);
   }
 
   @Test
   public void testGetAll() throws Exception
   {
     String[] all = database.getAll();
-    for (String string: all)
+    for (String string : all)
       System.out.println(string);
   }
 

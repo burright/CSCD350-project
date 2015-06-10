@@ -1,20 +1,19 @@
 package view;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 
-public abstract class makeGUI{
-	JFrame frame;
+public abstract class makeGUI
+{
+  JFrame frame;
 
-	/**
-	 * Create the application.
-	 */
-	public makeGUI(){
-		//makeMulti();
-	}
-	
-	
+  /**
+   * Create the application.
+   */
+  public makeGUI()
+  {
+    //makeMulti();
+  }
 
-	
 
 }
