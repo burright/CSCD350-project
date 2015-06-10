@@ -17,12 +17,15 @@ public class doorGUI  //rename to roomGUI
 	private static Door n, s, e, w; //make private
 	private static JFrame frame;
 
-	private static DoorElement nDoor, sDoor, eDoor, wDoor;
-	private static DoorElement[] ndoors = new DoorElement[4];
-	private static Door[] mazeDoors = new Door[4];
-	private static int numDoors;
-	private static Room rm;
-	public static boolean waits = true;
+	private DoorElement nDoor;
+	private  DoorElement sDoor;
+	private  DoorElement eDoor;
+	private  DoorElement wDoor;
+	private  DoorElement[] ndoors = new DoorElement[4];
+	private  Door[] mazeDoors = new Door[4];
+	private  int numDoors;
+	private  Room rm;
+	public static boolean waits;
 
   public doorGUI(Room room, int numOfDoors)
   {
@@ -30,7 +33,7 @@ public class doorGUI  //rename to roomGUI
        frame.setBounds(100, 100, 740, 422);	
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.getContentPane().setLayout(null);	
-       
+  
        int c = analyzeRoom(room);
        System.out.println(c);
        //set layout to hold number of doors
@@ -47,13 +50,13 @@ public class doorGUI  //rename to roomGUI
 
   }
 
- public static void checkDoorLocks(Room room)
+ public void checkDoorLocks(Room room)
  {
    //analyzeRoom(room);
    if(n.exists && room.getDoor("North").isPermLocked())
    {
    //change to locked door
-     nDoor.lockDoor();
+     this.nDoor.lockDoor();
      ndoors[nDoor.getIndex()].lockDoor();
    }
    if(s.exists && room.getDoor("South").isPermLocked())
@@ -78,12 +81,13 @@ public class doorGUI  //rename to roomGUI
    rm = room;	
  }
 
- private static int analyzeRoom(Room room) //Count and assign doors
+ private int analyzeRoom(Room room) //Count and assign doors
  {
    int count = 0;
    if(room.doorIsNull("North"))
    {
      nDoor= makeDoor(room.getDoor("North"),count);
+     nDoor.setDirection("North");
      mazeDoors[count] = room.getDoor("North");
      ndoors[count] = nDoor;		
      nDoor.setIndex(count);
@@ -93,6 +97,7 @@ public class doorGUI  //rename to roomGUI
    if(room.doorIsNull("South"))
    {
      sDoor = makeDoor(room.getDoor("South"),count);
+     sDoor.setDirection("South");
      mazeDoors[count] = room.getDoor("South");
      ndoors[count] = sDoor;		
      sDoor.setIndex(count);
@@ -102,6 +107,7 @@ public class doorGUI  //rename to roomGUI
    if(room.doorIsNull("East"))
    {
      eDoor = makeDoor(room.getDoor("East"),count);
+     eDoor.setDirection("East");
      mazeDoors[count] = room.getDoor("East");
      ndoors[count] = eDoor;
      eDoor.setIndex(count);
@@ -111,6 +117,7 @@ public class doorGUI  //rename to roomGUI
    if(room.doorIsNull("West"))
    {			
      wDoor = makeDoor(room.getDoor("West"),count);
+     wDoor.setDirection("West");
      mazeDoors[count] = room.getDoor("West");
      ndoors[count] = wDoor;
      wDoor.setIndex(count);
@@ -121,7 +128,7 @@ public class doorGUI  //rename to roomGUI
      return count;
 	}
 
-  public static DoorElement makeDoor(Door door,int index)
+  public DoorElement makeDoor(Door door,int index)
   {
    if(door.exists) //door exists
    {
@@ -255,14 +262,18 @@ public class doorGUI  //rename to roomGUI
 		
 		
 		ndoors[3].getBtn().addActionListener(makeAction(3));
-	    
+		//ndoors[3].getBtn().addActionListener(makeQuestionAction(3));
 		
 		ndoors[3].getLbl().setBounds(565, 11, 149, 338);
 		frame.getContentPane().add(ndoors[3].getLbl());
 		
 	}
+	public boolean getWaits()
+	{
+		return this.waits;
+	}
 	
-	public static ActionListener makeAction(final int i)
+	public ActionListener makeAction(final int i)
 	{
 		return new ActionListener() 
 		{
@@ -273,10 +284,34 @@ public class doorGUI  //rename to roomGUI
 			System.out.println("Button was pushed");
 			ndoors[i].lockDoor();
 			waits = false; 
+			
+			
 		}
 	};
 	}
 
+	
+	public ActionListener makeQuestionAction(final int i)
+	{
+		return new ActionListener() 
+		{
+			
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			//Open trivia
+			//Question n = new Question();
+			
+			System.out.println("Button was pushed");
+			System.out.println(super.getClass().toString());
+			//get random question and display GUI for that question.
+			
+			//if question wrong lock door
+			ndoors[i].lockDoor();
+			
+			waits = false; 
+		}
+	};
+	}
 
 
   public void show()
@@ -290,4 +325,3 @@ public class doorGUI  //rename to roomGUI
   }
 
 }
-

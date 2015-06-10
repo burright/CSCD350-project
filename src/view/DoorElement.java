@@ -1,4 +1,4 @@
-//package view;
+////package view;
 
 import javax.swing.*;
 import java.net.MalformedURLException;
@@ -9,6 +9,16 @@ import java.net.URL;
   private JButton btn;
   private JLabel door;
   private int in;
+  private String direction;
+  
+ public String getDirection(){
+	 return this.direction;
+ }
+ 
+ public void setDirection(String dir){
+	 this.direction = dir;
+	 this.btn.setText(dir);
+ }
  
  
  public int getIndex()
