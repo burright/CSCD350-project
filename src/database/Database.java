@@ -40,12 +40,7 @@ public class Database
       _connection = DriverManager.getConnection("jdbc:sqlite:database/questions.db");
       _connection.setAutoCommit(false);
     }
-    catch (ClassNotFoundException e)
-    {
-      System.err.println(e.getClass().getName() + ": " + e.getMessage());
-      System.exit(0);
-    }
-    catch (SQLException e)
+    catch (ClassNotFoundException | SQLException e)
     {
       System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);
@@ -303,19 +298,19 @@ public class Database
     String[] multipleChoice = getAll(TABLE_MULTI);
     String[] shortAnswer = getAll(TABLE_SHORT);
 
-    for (int i = 0; i < trueFalse.length; i++)
+    for (String aTrueFalse : trueFalse)
     {
-      questions[j++] = trueFalse[i];
+      questions[j++] = aTrueFalse;
     }
 
-    for (int i = 0; i < multipleChoice.length; i++)
+    for (String aMultipleChoice : multipleChoice)
     {
-      questions[j++] = multipleChoice[i];
+      questions[j++] = aMultipleChoice;
     }
 
-    for (int i = 0; i < shortAnswer.length; i++)
+    for (String aShortAnswer : shortAnswer)
     {
-      questions[j++] = shortAnswer[i];
+      questions[j++] = aShortAnswer;
     }
 
     return questions;

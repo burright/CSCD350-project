@@ -11,7 +11,7 @@ public class Tester
     Mdriver.createMaze(new File("MazeInput.txt"));
     //Mdriver.printMaze();
     boolean completed = Mdriver.traverseMaze();
-    if (completed == true)
+    if (completed)
     {
       System.out.println("Congratulations you reached the end of the maze!");
     }

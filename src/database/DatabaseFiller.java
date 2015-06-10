@@ -23,12 +23,7 @@ public class DatabaseFiller
       connection = DriverManager.getConnection("jdbc:sqlite:database/questions.db");
       connection.setAutoCommit(false);
     }
-    catch (ClassNotFoundException e)
-    {
-      System.err.println(e.getClass().getName() + ": " + e.getMessage());
-      System.exit(0);
-    }
-    catch (SQLException e)
+    catch (ClassNotFoundException | SQLException e)
     {
       System.err.println(e.getClass().getName() + ": " + e.getMessage());
       System.exit(0);

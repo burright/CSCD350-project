@@ -54,7 +54,7 @@ public class Maze
     {
       return true;
     }
-    if (checked[x][y] == true)
+    if (checked[x][y])
       return false;
     checked[x][y] = true;
     if (x != 0 && getRoom(x, y).doorIsNull("North") && !getRoom(x, y).N_door.isPermLocked())

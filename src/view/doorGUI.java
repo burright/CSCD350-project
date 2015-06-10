@@ -255,7 +255,7 @@ public class doorGUI  //rename to roomGUI
 
   public boolean getWaits()
   {
-    return this.waits;
+    return waits;
   }
 
   public ActionListener makeAction(final int i)
@@ -301,12 +301,12 @@ public class doorGUI  //rename to roomGUI
 
   public void show()
   {
-    this.frame.setVisible(true);
+    frame.setVisible(true);
   }
 
   public void hide()
   {
-    this.frame.setVisible(false);
+    frame.setVisible(false);
   }
 
 }
