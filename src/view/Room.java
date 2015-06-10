@@ -59,4 +59,20 @@ public class Room
         return null;
     }
   }
+  
+  public void lockDoor(String door)
+  {
+   switch(door)
+   {
+      case "North":
+      	N_door.lock();
+      case "South":
+      	S_door.lock();
+      case "East":
+      	E_door.lock();
+      case "West":
+      	W_door.lock();
+      default:			
+    }
+  }
 }
