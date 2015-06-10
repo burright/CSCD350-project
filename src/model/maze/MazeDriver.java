@@ -93,7 +93,8 @@ public class MazeDriver
         if (!maze.getRoom(curX, curY).doorIsNull(userIn))
           System.out.println("Please enter a valid door.");
 
-      } while (!maze.getRoom(curX, curY).doorIsNull(userIn));
+      }
+      while (!maze.getRoom(curX, curY).doorIsNull(userIn));
 
       switch (userIn)
       {

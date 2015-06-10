@@ -1,74 +1,75 @@
-////package view;
+package view;
 
 import javax.swing.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
- public class DoorElement
- {
+public class DoorElement
+{
   private JButton btn;
   private JLabel door;
   private int in;
   private String direction;
-  
- public String getDirection(){
-	 return this.direction;
- }
- 
- public void setDirection(String dir){
-	 this.direction = dir;
-	 this.btn.setText(dir);
- }
- 
- 
- public int getIndex()
- {
-  return in;
- }
-  
- public void setIndex(int index)
- {
-  this.in = index;
- }
-	
- public JButton getBtn() 
- {
-  return btn;
- }
 
- public void setBtn(JButton btn)
- {	
-  this.btn = btn;
- }
- 
- public JLabel getLbl() 
- {
-  return door;
- }
- 
- public void setLbl(JLabel door) 
- {
-  this.door = door;
- }
-
- public DoorElement(JButton btn, JLabel door, int index)
- {
-  this.btn = btn;
-  this.door = door;
-  this.in = index;
- }
-
- public void lockDoor()
- {
-  try
+  public DoorElement(JButton btn, JLabel door, int index)
   {
-   this.door.setIcon(new ImageIcon(new URL("http://i.imgur.com/9Iyt73S.jpg")));
-   this.btn.setText("Locked");
+    this.btn = btn;
+    this.door = door;
+    this.in = index;
   }
-  catch (MalformedURLException e)
+
+  public String getDirection()
   {
-   e.printStackTrace();
+    return this.direction;
   }
- }
+
+  public void setDirection(String dir)
+  {
+    this.direction = dir;
+    this.btn.setText(dir);
+  }
+
+  public int getIndex()
+  {
+    return in;
+  }
+
+  public void setIndex(int index)
+  {
+    this.in = index;
+  }
+
+  public JButton getBtn()
+  {
+    return btn;
+  }
+
+  public void setBtn(JButton btn)
+  {
+    this.btn = btn;
+  }
+
+  public JLabel getLbl()
+  {
+    return door;
+  }
+
+  public void setLbl(JLabel door)
+  {
+    this.door = door;
+  }
+
+  public void lockDoor()
+  {
+    try
+    {
+      this.door.setIcon(new ImageIcon(new URL("http://i.imgur.com/9Iyt73S.jpg")));
+      this.btn.setText("Locked");
+    }
+    catch (MalformedURLException e)
+    {
+      e.printStackTrace();
+    }
+  }
 
 }

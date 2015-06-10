@@ -54,19 +54,19 @@ public class Database
     int size = getSize(TABLE_MULTI);
     _randomMultipleChoiceArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomMultipleChoiceArray[i] = i+1;
+      _randomMultipleChoiceArray[i] = i + 1;
     shuffle(TABLE_MULTI);
 
     size = getSize(TABLE_TF);
     _randomTrueFalseArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomTrueFalseArray[i] = i+1;
+      _randomTrueFalseArray[i] = i + 1;
     shuffle(TABLE_TF);
 
     size = getSize(TABLE_SHORT);
     _randomShortAnswerArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomShortAnswerArray[i] = i+1;
+      _randomShortAnswerArray[i] = i + 1;
     shuffle(TABLE_SHORT);
   }
 
@@ -191,10 +191,10 @@ public class Database
     Question question = null;
     try (Statement statement = _connection.createStatement();
          ResultSet resultSet = statement.executeQuery("SELECT * FROM true_false WHERE id = "
-                 + id + ";"))
+           + id + ";"))
     {
       question = new Question(id,
-              resultSet.getString(KEY_QUES), resultSet.getString(KEY_ANS));
+        resultSet.getString(KEY_QUES), resultSet.getString(KEY_ANS));
     }
     catch (SQLException e)
     {
@@ -212,11 +212,11 @@ public class Database
 
     try (Statement statement = _connection.createStatement();
          ResultSet resultSet = statement.executeQuery("SELECT * FROM multiple_choice WHERE id = "
-                 + id + ";"))
+           + id + ";"))
     {
       question = new Question(id, resultSet.getString(KEY_QUES),
-              resultSet.getString(KEY_ANS), resultSet.getString(KEY_OPTA), resultSet.getString(KEY_OPTB),
-              resultSet.getString(KEY_OPTC));
+        resultSet.getString(KEY_ANS), resultSet.getString(KEY_OPTA), resultSet.getString(KEY_OPTB),
+        resultSet.getString(KEY_OPTC));
     }
     catch (SQLException e)
     {
@@ -233,10 +233,10 @@ public class Database
     Question question = null;
     try (Statement statement = _connection.createStatement();
          ResultSet resultSet = statement.executeQuery("SELECT * FROM short_answer WHERE id = "
-                 + id + ";"))
+           + id + ";"))
     {
       question = new Question(id,
-              resultSet.getString(KEY_QUES), resultSet.getString(KEY_ANS));
+        resultSet.getString(KEY_QUES), resultSet.getString(KEY_ANS));
     }
     catch (SQLException e)
     {
@@ -372,20 +372,20 @@ public class Database
         case TABLE_MULTI:
         {
           sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
-                  "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
-                  + question.getOptB() + "','" + question.getOptC() + "');";
+            "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
+            + question.getOptB() + "','" + question.getOptC() + "');";
           break;
         }
         case TABLE_TF:
         {
           sql = "INSERT INTO true_false (question,answer) " +
-                  "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+            "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
           break;
         }
         case TABLE_SHORT:
         {
           sql = "INSERT INTO short_answer (question,answer) " +
-                  "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+            "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
           break;
         }
         default:

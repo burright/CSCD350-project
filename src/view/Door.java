@@ -1,4 +1,4 @@
-package model.maze;
+package view;
 
 public class Door
 {
@@ -29,7 +29,7 @@ public class Door
   {
     return locked;
   }
-  
+
 
   public boolean getPermLocked()
   {

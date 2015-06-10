@@ -1,5 +1,7 @@
 package model.maze;
 
+import view.Door;
+
 public class Room
 {
 

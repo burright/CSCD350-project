@@ -1,13 +1,13 @@
-//package view;
+package view;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 public class multiChoiceGUI //extends makeGUI
 {
-	
-	JFrame frame;
+
+  JFrame frame;
+
   public multiChoiceGUI(String question, String a, String b, String c)
   {
 
@@ -55,13 +55,17 @@ public class multiChoiceGUI //extends makeGUI
 
 
   }
-public void show() {
-	frame.setVisible(true);
-	
-}
-public void hide() {
-	frame.setVisible(false);
-	
-}
+
+  public void show()
+  {
+    frame.setVisible(true);
+
+  }
+
+  public void hide()
+  {
+    frame.setVisible(false);
+
+  }
 }
 

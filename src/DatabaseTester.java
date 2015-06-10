@@ -41,7 +41,8 @@ public class DatabaseTester
           break;
       }
 
-    } while (!quit);
+    }
+    while (!quit);
 
     database.closeConnection();
   }

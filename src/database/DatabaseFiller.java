@@ -63,14 +63,14 @@ public class DatabaseFiller
       try (Statement statement = connection.createStatement())
       {
         if (words[1].equalsIgnoreCase("true") || words[1].equalsIgnoreCase("false")
-                || words[1].equalsIgnoreCase("t") || words[1].equalsIgnoreCase("f"))
+          || words[1].equalsIgnoreCase("t") || words[1].equalsIgnoreCase("f"))
         {
           sql = "INSERT INTO true_false(question,answer) " +
-                  "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
+            "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
         }
         else
           sql = "INSERT INTO short_answer(question,answer) " +
-                  "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
+            "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "')";
 
         statement.executeUpdate(sql);
         connection.commit();
@@ -86,8 +86,8 @@ public class DatabaseFiller
       try (Statement statement = connection.createStatement())
       {
         sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
-                "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "','" + words[2] +
-                "','" + words[3] + "','" + words[4] + "');";
+          "VALUES ('" + words[0] + "','" + words[1].toLowerCase() + "','" + words[2] +
+          "','" + words[3] + "','" + words[4] + "');";
         statement.executeUpdate(sql);
         connection.commit();
       }
