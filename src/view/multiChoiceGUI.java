@@ -1,11 +1,14 @@
-package view;
+//package view;
 
 import javax.swing.*;
+
 import java.awt.*;
 
-public class multiChoiceGUI extends makeGUI
+public class multiChoiceGUI //extends makeGUI
 {
-  public multiChoiceGUI()
+	
+	JFrame frame;
+  public multiChoiceGUI(String question, String a, String b, String c)
   {
 
     frame = new JFrame();
@@ -52,4 +55,13 @@ public class multiChoiceGUI extends makeGUI
 
 
   }
+public void show() {
+	frame.setVisible(true);
+	
 }
+public void hide() {
+	frame.setVisible(false);
+	
+}
+}
+
