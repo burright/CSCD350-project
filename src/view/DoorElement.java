@@ -9,7 +9,7 @@ import java.net.URL;
   private JButton btn;
   private JLabel door;
   private int in;
- }
+ 
  
  public int getIndex()
  {
