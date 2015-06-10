@@ -77,4 +77,19 @@ public class Room
         return null;
     }
   }
+
+  public int getNumDoors()
+  {
+      int cur = 0;
+      if(N_door.exists)
+        cur++;
+      if(S_door.exists)
+        cur++;
+      if(E_door.exists)
+        cur++;
+      if(W_door.exists)
+        cur++;
+
+      return cur;
+  }
 }

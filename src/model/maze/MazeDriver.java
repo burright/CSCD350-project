@@ -1,8 +1,10 @@
 package model.maze;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import view.*;
 
 public class MazeDriver
 {
@@ -71,31 +73,42 @@ public class MazeDriver
     }
   }
 
-  public boolean traverseMaze()
-  {
+  public boolean traverseMaze() {
+
     Scanner fin = new Scanner(System.in);
     String userIn = null;
-    curX = 1;
-    curY = 3;
+    curX = 1;//start x coordinate
+    curY = 3;//start y coordinate
 
-    while (curX != 3 || curY != 0)
-    {
-      System.out.println("Current Room Has:");
-      maze.getRoom(curX, curY).printRoom();
-      System.out.println();
-      System.out.println("Which way would you like to go?");
 
-      do
+    while (curX != 3 || curY != 0) {
+
+      Room curroom = maze.getRoom(curX, curY);
+      doorGUI doorWindow = new doorGUI(curroom, curroom.getNumDoors());
+
+      EventQueue.invokeLater(new Runnable() {
+        public void run() {
+          try {
+
+            doorWindow.show();
+
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      });
+
+      while(doorWindow.getDoor()==null)
       {
+          System.out.print("");
+      }
 
-        userIn = fin.nextLine();
-        System.out.println();
-        if (!maze.getRoom(curX, curY).doorIsNull(userIn))
-          System.out.println("Please enter a valid door.");
 
-      } while (!maze.getRoom(curX, curY).doorIsNull(userIn));
 
-      switch (userIn)
+      String curDirection = doorWindow.getDoor();
+      System.out.println(curDirection);
+
+      switch (curDirection)
       {
         case "North":
           curX--;

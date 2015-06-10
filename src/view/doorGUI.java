@@ -1,4 +1,4 @@
-//package view;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,21 +11,30 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import model.maze.*;
 
 public class doorGUI  //rename to roomGUI
 {
-	private static Door n, s, e, w; //make private
-	private static JFrame frame;
+	private Door n, s, e, w; //make private
+	private JFrame frame;
 
-	private DoorElement nDoor;
-	private  DoorElement sDoor;
-	private  DoorElement eDoor;
-	private  DoorElement wDoor;
-	private  DoorElement[] ndoors = new DoorElement[4];
-	private  Door[] mazeDoors = new Door[4];
-	private  int numDoors;
-	private  Room rm;
-	public static boolean waits;
+
+	private DoorElement nDoor, sDoor, eDoor, wDoor;
+	private DoorElement[] ndoors = new DoorElement[4];
+	private Door[] mazeDoors = new Door[4];
+	private int numDoors;
+	private Room rm;
+	public String openedDoor = null;
+
+    public void setDoor(String door)
+    {
+        this.openedDoor = door;
+    }
+    public String getDoor()
+    {
+        return this.openedDoor;
+    }
+
 
   public doorGUI(Room room, int numOfDoors)
   {
@@ -35,10 +44,11 @@ public class doorGUI  //rename to roomGUI
        frame.getContentPane().setLayout(null);	
   
        int c = analyzeRoom(room);
-       System.out.println(c);
        //set layout to hold number of doors
-			
-       if(c == 2)
+
+       if(c == 1)
+           oneDoor(room);
+       else if(c == 2)
        	  twoDoor(room);
        else if(c == 3)
        	  threeDoor(room);
@@ -46,7 +56,6 @@ public class doorGUI  //rename to roomGUI
        	  fourDoor(room);
   
        rm = room;
-	//frame.setVisible(true);
 
   }
 
@@ -173,7 +182,16 @@ public class doorGUI  //rename to roomGUI
    }
 		
  }
-	
+	public void oneDoor(Room room)
+    {
+        ndoors[0].getBtn().setBounds(287, 326, 149, 23);
+        frame.getContentPane().add(ndoors[0].getBtn());
+
+        ndoors[0].getBtn().addActionListener(makeAction(0));
+
+        ndoors[0].getLbl().setBounds(287, 11, 149, 338);
+        frame.getContentPane().add(ndoors[0].getLbl());
+    }
   
 	public void twoDoor(Room room)
 	{
@@ -181,8 +199,10 @@ public class doorGUI  //rename to roomGUI
 		
 		ndoors[0].getBtn().setBounds(96, 326, 149, 23);
 		frame.getContentPane().add(ndoors[0].getBtn());
-		
-		ndoors[0].getLbl().setBounds(96, 11, 149, 338);
+
+        ndoors[0].getBtn().addActionListener(makeAction(0));
+
+        ndoors[0].getLbl().setBounds(96, 11, 149, 338);
 		frame.getContentPane().add(ndoors[0].getLbl());
 		
 		
@@ -190,7 +210,9 @@ public class doorGUI  //rename to roomGUI
 		ndoors[1].getBtn().setBounds(465, 326, 149, 23);
 		frame.getContentPane().add(ndoors[1].getBtn());
 
-		ndoors[1].getLbl().setBounds(465, 11, 149, 338);
+        ndoors[1].getBtn().addActionListener(makeAction(1));
+
+        ndoors[1].getLbl().setBounds(465, 11, 149, 338);
 		frame.getContentPane().add(ndoors[1].getLbl());
 		
 		
@@ -201,8 +223,10 @@ public class doorGUI  //rename to roomGUI
 		
 		ndoors[0].getBtn().setBounds(69, 326, 149, 23);
 		frame.getContentPane().add(ndoors[0].getBtn());
-		
-		ndoors[0].getLbl().setBounds(69, 11, 149, 338);
+
+        ndoors[0].getBtn().addActionListener(makeAction(0));
+
+        ndoors[0].getLbl().setBounds(69, 11, 149, 338);
 		frame.getContentPane().add(ndoors[0].getLbl());
 		
 		
@@ -210,8 +234,10 @@ public class doorGUI  //rename to roomGUI
 		
 		ndoors[1].getBtn().setBounds(287, 326, 149, 23);
 		frame.getContentPane().add(ndoors[1].getBtn());
-		
-		ndoors[1].getLbl().setBounds(287, 11, 149, 338);
+
+        ndoors[1].getBtn().addActionListener(makeAction(1));
+
+        ndoors[1].getLbl().setBounds(287, 11, 149, 338);
 		frame.getContentPane().add(ndoors[1].getLbl());
 		
 	
@@ -219,23 +245,24 @@ public class doorGUI  //rename to roomGUI
 		
 		ndoors[2].getBtn().setBounds(505, 326, 149, 23);
 		frame.getContentPane().add(ndoors[2].getBtn());
-		
-		ndoors[2].getLbl().setBounds(505, 11, 149, 338);
+
+        ndoors[2].getBtn().addActionListener(makeAction(2));
+
+        ndoors[2].getLbl().setBounds(505, 11, 149, 338);
 		frame.getContentPane().add(ndoors[2].getLbl());
-	
-	
-		
+
 	
 	}
-	
 	
 	public void fourDoor(Room room)
 	{
 
 		ndoors[0].getBtn().setBounds(30, 326, 149, 23);
 		frame.getContentPane().add(ndoors[0].getBtn());
-		
-		ndoors[0].getLbl().setBounds(30, 11, 149, 338);
+
+        ndoors[0].getBtn().addActionListener(makeAction(0));
+
+        ndoors[0].getLbl().setBounds(30, 11, 149, 338);
 		frame.getContentPane().add(ndoors[0].getLbl());
 		
 		
@@ -243,16 +270,20 @@ public class doorGUI  //rename to roomGUI
 		
 		ndoors[1].getBtn().setBounds(209, 326, 149, 23);
 		frame.getContentPane().add(ndoors[1].getBtn());
-		
-		ndoors[1].getLbl().setBounds(209, 11, 149, 338);
+
+        ndoors[1].getBtn().addActionListener(makeAction(1));
+
+        ndoors[1].getLbl().setBounds(209, 11, 149, 338);
 		frame.getContentPane().add(ndoors[1].getLbl());
 		
 	
 	
 		ndoors[2].getBtn().setBounds(391, 326, 149, 23);
 		frame.getContentPane().add(ndoors[2].getBtn());
-		
-		ndoors[2].getLbl().setBounds(391, 11, 149, 338);
+
+        ndoors[2].getBtn().addActionListener(makeAction(2));
+
+        ndoors[2].getLbl().setBounds(391, 11, 149, 338);
 		frame.getContentPane().add(ndoors[2].getLbl());
 		
 
@@ -268,24 +299,20 @@ public class doorGUI  //rename to roomGUI
 		frame.getContentPane().add(ndoors[3].getLbl());
 		
 	}
-	public boolean getWaits()
-	{
-		return this.waits;
-	}
 	
 	public ActionListener makeAction(final int i)
 	{
-		return new ActionListener() 
-		{
+		return new ActionListener(){
 			
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			//Open trivia
-			System.out.println("Button was pushed");
+
+            System.out.println("Button was pushed");
 			ndoors[i].lockDoor();
-			waits = false; 
-			
-			
+            frame.removeAll();
+            frame.setVisible(false);
+            setDoor(ndoors[i].getDirection());
 		}
 	};
 	}
@@ -308,7 +335,6 @@ public class doorGUI  //rename to roomGUI
 			//if question wrong lock door
 			ndoors[i].lockDoor();
 			
-			waits = false; 
 		}
 	};
 	}

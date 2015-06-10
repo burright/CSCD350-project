@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 
 
-public abstract class makeGUI
+public class makeGUI
 {
   JFrame frame;
 
@@ -13,7 +13,7 @@ public abstract class makeGUI
   public makeGUI()
   {
     //makeMulti();
-  }
+}
 
 
 }
