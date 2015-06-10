@@ -29,6 +29,7 @@ public class Door
   {
     return locked;
   }
+  
 
   public boolean getPermLocked()
   {

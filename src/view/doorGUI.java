@@ -1,4 +1,4 @@
-package view;
+//package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,25 +50,25 @@ public class doorGUI  //rename to roomGUI
  public static void checkDoorLocks(Room room)
  {
    //analyzeRoom(room);
-   if(n.exists && room.getDoor("North").locked())
+   if(n.exists && room.getDoor("North").isPermLocked())
    {
    //change to locked door
      nDoor.lockDoor();
      ndoors[nDoor.getIndex()].lockDoor();
    }
-   if(s.exists && room.getDoor("South").locked())
+   if(s.exists && room.getDoor("South").isPermLocked())
    {
    //change to locked door
      sDoor.lockDoor();
      ndoors[sDoor.getIndex()].lockDoor();
    }
-   if(e.exists && room.getDoor("East").locked())
+   if(e.exists && room.getDoor("East").isPermLocked())
    {
    //change to locked door
      eDoor.lockDoor();
      ndoors[eDoor.getIndex()].lockDoor();
    }
-   if(w.exists && room.getDoor("West").locked())
+   if(w.exists && room.getDoor("West").isPermLocked())
    {
    //change to locked door
      wDoor.lockDoor();
@@ -128,44 +128,44 @@ public class doorGUI  //rename to roomGUI
      JButton btn = null;
      JLabel door1 = null;
      
-     if(door.locked())
+     if(door.getLocked())
      { //door unlocked
-	btn = new JButton("Try to open");
+       btn = new JButton("Try to open");
 					
-	try 
-	{
-	  door1 = new JLabel(new ImageIcon(new URL("http://i.imgur.com/9Iyt73S.jpg")));
-	} 
-	catch (MalformedURLException e) 
-	{
-	  System.out.println("Something went wrong");
-	  e.printStackTrace();
-	}
+       try 
+       {
+	    door1 = new JLabel(new ImageIcon(new URL("http://i.imgur.com/9Iyt73S.jpg")));
+       } 
+       catch (MalformedURLException e) 
+       {
+    	System.out.println("Something went wrong");
+	    e.printStackTrace();
+       }
 				
-	}
+	 }
      else //door locked
      {
-	btn = new JButton("");
+	   btn = new JButton("Open door");
 				
-	try 
-	{
-	  door1 = new JLabel(new ImageIcon(new URL("http://i.imgur.com/9Iyt73S.jpg")));
-	} 
-	catch (MalformedURLException e) 
-	{
-	  System.out.println("Something went wrong");
-	  e.printStackTrace();
-	}
-      }
+	   try 
+	   {
+	    door1 = new JLabel(new ImageIcon(new URL("http://i.imgur.com/o7UWme9.jpg")));
+	   } 
+	   catch (MalformedURLException e) 
+	   {
+	    System.out.println("Something went wrong");
+	    e.printStackTrace();
+	   }
+     }
       
-        return new DoorElement(btn,door1,index);
-     }
-     else
-     {
-	return null;
-     }
+     return new DoorElement(btn,door1,index);
+   }
+   else
+   {
+    return null;
+   }
 		
-	}
+ }
 	
   
 	public void twoDoor(Room room)
@@ -290,3 +290,4 @@ public class doorGUI  //rename to roomGUI
   }
 
 }
+

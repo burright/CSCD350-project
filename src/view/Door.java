@@ -1,4 +1,4 @@
-package view;
+package model.maze;
 
 public class Door
 {
@@ -14,14 +14,25 @@ public class Door
     this.permlocked = false;
   }
 
+  public boolean isPermLocked()
+  {
+    return permlocked;
+  }
+
   //Permanently lock the door because question was answered incorrectly
   public void lock()
   {
     this.permlocked = true;
   }
 
-  public boolean locked()
+  public boolean getLocked()
   {
-    return this.locked;
+    return locked;
+  }
+  
+
+  public boolean getPermLocked()
+  {
+    return permlocked;
   }
 }
