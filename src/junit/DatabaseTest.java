@@ -82,12 +82,8 @@ public class DatabaseTest
   @Test
   public void testGetAll1() throws Exception
   {
-
-  }
-
-  @Test
-  public void testAddQuestion() throws Exception
-  {
-
+    String[] multipleChoice = database.getAll("multiple_choice");
+    String[] trueFalse = database.getAll("true_false");
+    String[] shortAnswer = database.getAll("short_answer");
   }
 }
