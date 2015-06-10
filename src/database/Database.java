@@ -54,19 +54,19 @@ public class Database
     int size = getSize(TABLE_MULTI);
     _randomMultipleChoiceArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomMultipleChoiceArray[i] = i;
+      _randomMultipleChoiceArray[i] = i+1;
     shuffle(TABLE_MULTI);
 
     size = getSize(TABLE_TF);
     _randomTrueFalseArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomTrueFalseArray[i] = i;
+      _randomTrueFalseArray[i] = i+1;
     shuffle(TABLE_TF);
 
     size = getSize(TABLE_SHORT);
     _randomShortAnswerArray = new int[size];
     for (int i = 0; i < size; i++)
-      _randomShortAnswerArray[i] = i;
+      _randomShortAnswerArray[i] = i+1;
     shuffle(TABLE_SHORT);
   }
 
@@ -261,26 +261,32 @@ public class Database
       case 0:
       {
         database = TABLE_MULTI;
-        if (_multipleChoiceIndex > _randomMultipleChoiceArray.length)
+        if (_multipleChoiceIndex >= _randomMultipleChoiceArray.length)
+        {
           shuffle(database);
-        _multipleChoiceIndex = 0;
-        return getQuestionMultipleChoice(_randomMultipleChoiceArray[_multipleChoiceIndex]);
+          _multipleChoiceIndex = 0;
+        }
+        return getQuestionMultipleChoice(_randomMultipleChoiceArray[_multipleChoiceIndex++]);
       }
       case 1:
       {
         database = TABLE_TF;
-        if (_trueFalseIndex > _randomTrueFalseArray.length)
+        if (_trueFalseIndex >= _randomTrueFalseArray.length)
+        {
           shuffle(database);
-        _trueFalseIndex = 0;
-        return getQuestionTrueFalse(_randomTrueFalseArray[_trueFalseIndex]);
+          _trueFalseIndex = 0;
+        }
+        return getQuestionTrueFalse(_randomTrueFalseArray[_trueFalseIndex++]);
       }
       case 2:
       {
         database = TABLE_SHORT;
-        if (_shortAnswerIndex > _randomShortAnswerArray.length)
+        if (_shortAnswerIndex >= _randomShortAnswerArray.length)
+        {
           shuffle(database);
-        _shortAnswerIndex = 0;
-        return getQuestionShortAnswer(_randomShortAnswerArray[_shortAnswerIndex]);
+          _shortAnswerIndex = 0;
+        }
+        return getQuestionShortAnswer(_randomShortAnswerArray[_shortAnswerIndex++]);
       }
       default:
         throw new RuntimeException("Number " + randomInt + " was generated");

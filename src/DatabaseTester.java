@@ -34,6 +34,7 @@ public class DatabaseTester
           askQuestion();
           break;
         case 4:
+          System.out.println(database.getRandomQuestion());
           break;
         case 5:
           quit = true;
@@ -147,7 +148,7 @@ public class DatabaseTester
     System.out.println("1. Print database");
     System.out.println("2. Add new question");
     System.out.println("3. Answer question");
-    System.out.println("4. Retrieve question using ID");
+    System.out.println("4. Get random question");
     System.out.println("5. Quit");
   }
 

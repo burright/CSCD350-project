@@ -59,7 +59,7 @@ public class Question
 
   private String parseInput(String input)
   {
-    return input.replaceAll("[^a-zA-Z0-9]+", "");
+    return input.replaceAll("[^a-zA-Z0-9\\s]+", "");
   }
 
   private String checkType(String string)
