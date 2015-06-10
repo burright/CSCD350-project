@@ -174,6 +174,11 @@ public class MazeDriver
           correct = mcWindow.getAnswer();
         }
 
+        if(correct == 2)
+        {
+          maze.lockDoor(curX,curY,curDirection);
+        }
+
       } while (correct != 1);
 
       switch (curDirection) {
