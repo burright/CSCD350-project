@@ -1,7 +1,8 @@
 package main;
 
-import database.Database;
 import model.maze.MazeDriver;
+import view.question.AddQuestionWindow;
+import view.WelcomeScreen;
 
 import java.io.File;
 
@@ -12,9 +13,17 @@ public class Main
 {
   public static void main(String[] args)
   {
-    Database database = new Database();
-    MazeDriver mazeDriver = new MazeDriver();
-    mazeDriver.createMaze(new File("MazeInput.txt"));
-
+    WelcomeScreen welcomeScreen = new WelcomeScreen();
+    switch (welcomeScreen.getChoice())
+    {
+      case 0:
+        MazeDriver mazeDriver = new MazeDriver();
+        mazeDriver.createMaze(new File("MazeInput.txt"));
+        break;
+      case 1:
+        AddQuestionWindow addQuestionWindow = new AddQuestionWindow();
+        addQuestionWindow.questionWindow();
+        break;
+    }
   }
 }
