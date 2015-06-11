@@ -13,7 +13,7 @@ public class WelcomeScreen
 
   public WelcomeScreen()
   {
-    _options = new JOptionPane("Welcome to Trivia Maze!",JOptionPane.CLOSED_OPTION);
+    _options = new JOptionPane(new JLabel("Welcome to Trivia Maze!",JLabel.CENTER),JOptionPane.CLOSED_OPTION);
     _options.setOptions(options);
     _dialog = _options.createDialog(new JFrame(),"Welcome");
   }
