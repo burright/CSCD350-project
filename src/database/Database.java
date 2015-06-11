@@ -182,7 +182,7 @@ public class Database
   // checks an answer with the question object
   public static boolean checkAnswer(String answer, Question question)
   {
-    return answer.equalsIgnoreCase(question.getQuestion());
+    return answer.equalsIgnoreCase(question.getAnswer());
   }
 
   // returns a specific question
