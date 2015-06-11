@@ -43,6 +43,7 @@ public class shortAnswerGUI extends makeGUI
 
     JButton btnNewButton = new JButton("submit");
     btnNewButton.setBounds(565, 304, 89, 23);
+    btnNewButton.addActionListener(getAction());
     frame.getContentPane().add(btnNewButton);
 
     textField = new JTextField();
@@ -60,7 +61,7 @@ public class shortAnswerGUI extends makeGUI
     frame.setVisible(false);
   }
   
-  public ActionListener correctAnswer()
+  public ActionListener getAction()
 	{
 		return new ActionListener(){
 			
