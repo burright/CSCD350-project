@@ -84,6 +84,7 @@ public class shortAnswerGUI extends makeGUI
 						    "Correct answer!",
 						    "Congrats!",
 						    JOptionPane.PLAIN_MESSAGE);
+					
 					setAnswer(1);
 				}
 				else
@@ -92,8 +93,11 @@ public class shortAnswerGUI extends makeGUI
 						    "You got the answer wrong!",
 						    "Sorry!",
 						    JOptionPane.PLAIN_MESSAGE);
+					
 					setAnswer(2);
 				}
+				frame.removeAll();
+				frame.dispose();
 			}
 			
 			
