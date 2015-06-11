@@ -8,7 +8,27 @@ import javax.swing.*;
 import java.io.File;
 
 /**
- * Created by Sean Burright on 6/10/15.
+ * 
+ * Team Tardis presents:
+ * 
+ *
+ *
+ *
+ *
+___  ___                _____    _       _       
+|  \/  |               |_   _|  (_)     (_)      
+| .  . | __ _ _______    | |_ __ ___   ___  __ _ 
+| |\/| |/ _` |_  / _ \   | | '__| \ \ / / |/ _` |
+| |  | | (_| |/ /  __/   | | |  | |\ V /| | (_| |
+\_|  |_/\__,_/___\___|   \_/_|  |_| \_/ |_|\__,_|
+                                                
+                                                 
+ * Created by 
+ * Sean Burright
+ * Jacob Gwin
+ * Brady Clapp
+ * 
+ *  on 6/10/15.
  */
 public class Main
 {
