@@ -30,6 +30,10 @@ public class Door
     return locked;
   }
   
+  public void setLocked(boolean locked)
+  {
+    this.locked = locked;
+  }
 
   public boolean getPermLocked()
   {
