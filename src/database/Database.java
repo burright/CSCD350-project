@@ -180,7 +180,7 @@ public class Database
   }
 
   // checks an answer with the question object
-  public boolean checkAnswer(String answer, Question question)
+  public static boolean checkAnswer(String answer, Question question)
   {
     return answer.equalsIgnoreCase(question.getQuestion());
   }
