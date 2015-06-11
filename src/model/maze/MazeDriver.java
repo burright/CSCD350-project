@@ -174,6 +174,14 @@ public class MazeDriver
           correct = mcWindow.getAnswer();
         }
 
+        boolean navigatable = true;
+        if(correct == 2)
+        {
+          navigatable = maze.lockDoor(curX,curY,curDirection);
+        }
+        if(navigatable == false)
+          return false;
+
       } while (correct != 1);
 
       switch (curDirection) {
