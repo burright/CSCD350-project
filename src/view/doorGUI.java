@@ -89,13 +89,31 @@ public class doorGUI  //rename to roomGUI
 		
    rm = room;	
  }
+ 
+ public Door getDoorObject(String dir){
+	 if(dir.equals("North")){
+		 return n;
+	 }
+	 else if(dir.equals("East")){
+		 return e;
+	 }
+	 else if(dir.equals("West")){
+		 return w;
+	 }
+	 else if(dir.equals("South")){
+		 return s;
+	 }
+	 System.out.println("oops");
+	 return null;
+ }
 
  private int analyzeRoom(Room room) //Count and assign doors
  {
    int count = 0;
    if(room.doorIsNull("North"))
    {
-     nDoor= makeDoor(room.getDoor("North"),count);
+	 n = room.getDoor("North");
+     nDoor= makeDoor(n,count);
      nDoor.setDirection("North");
      mazeDoors[count] = room.getDoor("North");
      ndoors[count] = nDoor;		
@@ -105,7 +123,8 @@ public class doorGUI  //rename to roomGUI
    }
    if(room.doorIsNull("South"))
    {
-     sDoor = makeDoor(room.getDoor("South"),count);
+	 s = room.getDoor("South");
+     sDoor = makeDoor(s,count);
      sDoor.setDirection("South");
      mazeDoors[count] = room.getDoor("South");
      ndoors[count] = sDoor;		
@@ -115,7 +134,8 @@ public class doorGUI  //rename to roomGUI
    }
    if(room.doorIsNull("East"))
    {
-     eDoor = makeDoor(room.getDoor("East"),count);
+	 e = room.getDoor("East");
+     eDoor = makeDoor(e,count);
      eDoor.setDirection("East");
      mazeDoors[count] = room.getDoor("East");
      ndoors[count] = eDoor;
@@ -124,8 +144,9 @@ public class doorGUI  //rename to roomGUI
      count++;
    }
    if(room.doorIsNull("West"))
-   {			
-     wDoor = makeDoor(room.getDoor("West"),count);
+   {	
+	 w = room.getDoor("West");  
+     wDoor = makeDoor(w,count);
      wDoor.setDirection("West");
      mazeDoors[count] = room.getDoor("West");
      ndoors[count] = wDoor;
@@ -307,12 +328,18 @@ public class doorGUI  //rename to roomGUI
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			//Open trivia
-
+			if(getDoorObject(ndoors[i].getDirection()).isPermLocked())
+			{
+				
+			}
+			else
+			{
             System.out.println("Button was pushed");
-			ndoors[i].lockDoor();
+			//ndoors[i].lockDoor();
             frame.removeAll();
             frame.setVisible(false);
             setDoor(ndoors[i].getDirection());
+			}
 		}
 	};
 	}
