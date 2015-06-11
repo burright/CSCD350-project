@@ -1,7 +1,11 @@
 package view;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import database.*;
 
 public class shortAnswerGUI extends makeGUI
@@ -9,6 +13,7 @@ public class shortAnswerGUI extends makeGUI
 
   private int answer = 0;//0 means not answered, 1 means correct, 2 means incorrect
   private Question question;
+  public JTextField textField;
 
   public int getAnswer()
   {
@@ -23,7 +28,7 @@ public class shortAnswerGUI extends makeGUI
   {
     this.question = question;
 
-    JTextField textField;
+    
 
     frame = new JFrame();
     frame.setBounds(100, 100, 743, 435);
@@ -44,6 +49,7 @@ public class shortAnswerGUI extends makeGUI
     textField.setBounds(172, 277, 385, 77);
     frame.getContentPane().add(textField);
     textField.setColumns(10);
+    
   }
 
   public void show() {
@@ -53,4 +59,46 @@ public class shortAnswerGUI extends makeGUI
   public void hide() {
     frame.setVisible(false);
   }
+  
+  public ActionListener correctAnswer()
+	{
+		return new ActionListener(){
+			
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			//Display dialog saying correct
+			
+			
+			String txt = textField.getText();
+			
+			if(txt.equals("")){
+				JOptionPane.showMessageDialog(frame,
+					    "You did not answer the question!",
+					    "Hey!",
+					    JOptionPane.PLAIN_MESSAGE);
+			}
+			else
+			{
+				if(Database.checkAnswer(txt, question)){
+					JOptionPane.showMessageDialog(frame,
+						    "Correct answer!",
+						    "Congrats!",
+						    JOptionPane.PLAIN_MESSAGE);
+					setAnswer(1);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame,
+						    "You got the answer wrong!",
+						    "Sorry!",
+						    JOptionPane.PLAIN_MESSAGE);
+					setAnswer(2);
+				}
+			}
+			
+			
+			
+		}
+	};
+	}
 }
