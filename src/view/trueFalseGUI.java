@@ -57,20 +57,24 @@ public class trueFalseGUI extends makeGUI
 
   }
 
-  public void show() {
+  public void show() 
+  {
     frame.setVisible(true);
 
   }
-  public void hide() {
+  public void hide() 
+  {
     frame.setVisible(false);
   }
   
   
   
   //Action listener
-  public ActionListener getAction(String text){
+  public ActionListener getAction(String text)
+  {
 		
-		if(question.getAnswer().equals(text)){
+		if(question.getAnswer().equals(text))
+      {
 			return correctAnswer();
 		}
 		else
@@ -82,7 +86,8 @@ public class trueFalseGUI extends makeGUI
 
 	public ActionListener correctAnswer()
 	{
-		return new ActionListener(){
+		return new ActionListener()
+      {
 			
 		public void actionPerformed(ActionEvent arg0) 
 		{
@@ -101,7 +106,8 @@ public class trueFalseGUI extends makeGUI
 	
 	public ActionListener wrongAnswer()
 	{
-		return new ActionListener(){
+		return new ActionListener()
+      {
 			
 		public void actionPerformed(ActionEvent arg0) 
 		{

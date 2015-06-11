@@ -43,12 +43,14 @@ public class doorGUI  //rename to roomGUI
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.getContentPane().setLayout(null);	
   
-       try {
+       try 
+       {
 		frame.setContentPane(new JLabel(new ImageIcon(new URL("http://file3.guildlaunch.net/194825/grunge-brick-wall-background1.jpg"))));
-	} catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	   } 
+      catch (MalformedURLException e) 
+      {
+		  e.printStackTrace();
+	   }
        int c = analyzeRoom(room);
        //set layout to hold number of doors
 
@@ -96,17 +98,22 @@ public class doorGUI  //rename to roomGUI
    rm = room;	
  }
  
- public Door getDoorObject(String dir){
-	 if(dir.equals("North")){
+ public Door getDoorObject(String dir)
+   {
+	 if(dir.equals("North"))
+    {
 		 return n;
 	 }
-	 else if(dir.equals("East")){
+	 else if(dir.equals("East"))
+    {
 		 return e;
 	 }
-	 else if(dir.equals("West")){
+	 else if(dir.equals("West"))
+    {
 		 return w;
 	 }
-	 else if(dir.equals("South")){
+	 else if(dir.equals("South"))
+    {
 		 return s;
 	 }
 	 System.out.println("oops");
@@ -329,23 +336,24 @@ public class doorGUI  //rename to roomGUI
 	
 	public ActionListener makeAction(final int i)
 	{
-		return new ActionListener(){
+		return new ActionListener()
+      {
 			
-		public void actionPerformed(ActionEvent arg0) 
-		{
-			//Open trivia
-			if(getDoorObject(ndoors[i].getDirection()).isPermLocked())
-			{
+		   public void actionPerformed(ActionEvent arg0) 
+		   {
+			  //Open trivia
+			  if(getDoorObject(ndoors[i].getDirection()).isPermLocked())
+			  {
 				
-			}
-			else
-			{
+			  }
+			  else
+			  {
             System.out.println("Button was pushed");
-			//ndoors[i].lockDoor();
+			   //ndoors[i].lockDoor();
             frame.removeAll();
             frame.setVisible(false);
             setDoor(ndoors[i].getDirection());
-			}
+			  }
 		}
 	};
 	}

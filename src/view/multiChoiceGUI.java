@@ -16,9 +16,9 @@ public class multiChoiceGUI extends makeGUI
     private Question question;
 
   public int getAnswer()
-{
+  {
   return this.answer;
-}
+  }
   public void setAnswer(int answer)
   {
     this.answer = answer;
@@ -93,11 +93,13 @@ public class multiChoiceGUI extends makeGUI
 
   }
 
-public void show() {
+public void show() 
+{
 	frame.setVisible(true);
 	
 }
-public void hide() {
+public void hide() 
+{
 	frame.setVisible(false);
 	
 }
@@ -105,9 +107,11 @@ public void hide() {
 //Action Listener Functions
 
 
-public ActionListener getAction(String text){
+public ActionListener getAction(String text)
+{
 
-	if(Database.checkAnswer(text,question)){
+	if(Database.checkAnswer(text,question))
+   {
 		return correctAnswer();
 	}
 	else
@@ -119,7 +123,8 @@ public ActionListener getAction(String text){
 
 public ActionListener correctAnswer()
 {
-	return new ActionListener(){
+	return new ActionListener()
+   {
 		
 	public void actionPerformed(ActionEvent arg0) 
 	{
@@ -137,7 +142,8 @@ public ActionListener correctAnswer()
 
 public ActionListener wrongAnswer()
 {
-	return new ActionListener(){
+	return new ActionListener()
+   {
 		
 	public void actionPerformed(ActionEvent arg0) 
 	{
