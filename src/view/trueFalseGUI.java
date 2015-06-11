@@ -93,6 +93,8 @@ public class trueFalseGUI extends makeGUI
 				    JOptionPane.PLAIN_MESSAGE);
 			setAnswer(1);
 			
+			frame.removeAll();
+			frame.dispose();
 		}
 	};
 	}
@@ -110,6 +112,8 @@ public class trueFalseGUI extends makeGUI
 				    JOptionPane.PLAIN_MESSAGE);
 			setAnswer(2);
 			
+			frame.removeAll();
+			frame.dispose();
 		}
 	};
 	}

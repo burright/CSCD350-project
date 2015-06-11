@@ -129,7 +129,8 @@ public ActionListener correctAnswer()
 			    "Congrats!",
 			    JOptionPane.PLAIN_MESSAGE);
 		setAnswer(1);
-		
+		frame.removeAll();
+		frame.dispose();
 	}
 };
 }
@@ -146,7 +147,8 @@ public ActionListener wrongAnswer()
 			    "Sorry!",
 			    JOptionPane.PLAIN_MESSAGE);
 		setAnswer(2);
-		
+		frame.removeAll();
+		frame.dispose();
 	}
 };
 }
