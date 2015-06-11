@@ -106,7 +106,7 @@ public void hide() {
 
 
 public ActionListener getAction(String text){
-	
+
 	if(Database.checkAnswer(text,question)){
 		return correctAnswer();
 	}

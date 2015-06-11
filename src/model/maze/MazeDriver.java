@@ -115,12 +115,11 @@ public class MazeDriver
         curDirection = doorWindow.getDoor();
         System.out.println(curDirection);
 
-        Question curQuestion = database.getRandomQuestion();
-        System.out.println(curQuestion.getQuestion());
-        System.out.println(curQuestion.getAnswer());
-
         if(curroom.getDoor(curDirection).getLocked() && !curroom.getDoor(curDirection).isPermLocked())//door is not already unlocked and is not permLocked
         {
+          Question curQuestion = database.getRandomQuestion();
+          System.out.println(curQuestion.getQuestion());
+          System.out.println(curQuestion.getAnswer());
 
           if (curQuestion.getType().equals("short_answer")) {
             shortAnswerGUI saWindow = new shortAnswerGUI(curQuestion);
