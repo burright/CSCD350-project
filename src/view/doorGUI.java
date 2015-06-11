@@ -43,6 +43,12 @@ public class doorGUI  //rename to roomGUI
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.getContentPane().setLayout(null);	
   
+       try {
+		frame.setContentPane(new JLabel(new ImageIcon(new URL("http://file3.guildlaunch.net/194825/grunge-brick-wall-background1.jpg"))));
+	} catch (MalformedURLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
        int c = analyzeRoom(room);
        //set layout to hold number of doors
 
