@@ -24,11 +24,13 @@ public class Main
         if (mazeDriver.traverseMaze())
         {
           JOptionPane.showMessageDialog(frame,"Congratulations you reached the end of the maze!");
+          System.exit(0);
           //System.out.println("Congratulations you reached the end of the maze!");
         }
         else
         {
           JOptionPane.showMessageDialog(frame,"You've lost trivia maze!");
+          System.exit(0);
           //System.out.println("You've lost trivia maze!");
         }
         break;
