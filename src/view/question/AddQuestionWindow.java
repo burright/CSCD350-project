@@ -27,7 +27,7 @@ public class AddQuestionWindow
   public void questionWindow()
   {
     SwingUtilities.invokeLater(() -> {
-      _frame.getContentPane().setLayout(new GridLayout(1,3));
+      _frame.getContentPane().setLayout(new GridLayout(1, 3));
       _frame.add(_trueFalse);
       _frame.add(_multipleChoice);
       _frame.add(_shortAnswer);
@@ -35,11 +35,5 @@ public class AddQuestionWindow
       _frame.setLocationRelativeTo(null);
       _frame.setVisible(true);
     });
-  }
-
-  public static void main(String[] args)
-  {
-    AddQuestionWindow addQuestionWindow = new AddQuestionWindow();
-    addQuestionWindow.questionWindow();
   }
 }

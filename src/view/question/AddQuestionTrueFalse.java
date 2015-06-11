@@ -15,10 +15,10 @@ public class AddQuestionTrueFalse
   private JRadioButton _true = new JRadioButton();
   private JRadioButton _false = new JRadioButton();
   private ButtonGroup _buttons = new ButtonGroup();
-  private Object[] _message = new Object[] {
+  private Object[] _message = new Object[]{
     "Question:", _question,
-    "True",_true,
-    "False",_false
+    "True", _true,
+    "False", _false
   };
 
   public AddQuestionTrueFalse()
@@ -26,11 +26,22 @@ public class AddQuestionTrueFalse
     Database database = new Database();
     _buttons.add(_true);
     _buttons.add(_false);
-    int option = JOptionPane.showConfirmDialog(_frame,_message,"Enter Question Information",JOptionPane.OK_CANCEL_OPTION);
+    int option = JOptionPane.showConfirmDialog(_frame, _message, "Enter Question Information", JOptionPane.OK_CANCEL_OPTION);
     if (option == JOptionPane.OK_OPTION)
     {
-      database.addQuestion(new Question(_question.getText(),(_true.isSelected() ? "true" : "false")));
-      database.closeConnection();
+      try
+      {
+        database.addQuestion(new Question(_question.getText(), (_true.isSelected() ? "true" : "false")));
+      }
+      catch (Exception e)
+      {
+        JFrame frame = new JFrame("Error");
+        JOptionPane.showMessageDialog(frame, e.getClass().getName() + ": " + e.getMessage());
+      }
+      finally
+      {
+        database.closeConnection();
+      }
     }
   }
 }

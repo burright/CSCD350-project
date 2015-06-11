@@ -1,6 +1,7 @@
 import database.Database;
 import database.Question;
 
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -78,7 +79,15 @@ public class DatabaseTester
         options[0] = scan.nextLine();
         options[1] = scan.nextLine();
         options[2] = scan.nextLine();
-        database.addQuestion(new Question(question, answer, options[0], options[1], options[2]));
+        try
+        {
+          database.addQuestion(new Question(question, answer, options[0], options[1], options[2]));
+        }
+        catch (SQLException e)
+        {
+          System.err.println(e.getClass().getName() + ": " + e.getMessage());
+          System.exit(0);
+        }
         break;
       case 2:
         System.out.print("Enter the question: ");
@@ -99,15 +108,30 @@ public class DatabaseTester
           }
           System.out.println("Enter true or false");
         }
-        database.addQuestion(new Question(question, answer));
+        try
+        {
+          database.addQuestion(new Question(question, answer));
+        }
+        catch (SQLException e)
+        {
+          System.err.println(e.getClass().getName() + ": " + e.getMessage());
+          System.exit(0);
+        }
         break;
       case 3:
         System.out.print("Enter the question: ");
         question = scan.nextLine();
         System.out.print("Enter the answer");
         answer = scan.nextLine();
-
-        database.addQuestion(new Question(question, answer));
+        try
+        {
+          database.addQuestion(new Question(question, answer));
+        }
+        catch (SQLException e)
+        {
+          System.err.println(e.getClass().getName() + ": " + e.getMessage());
+          System.exit(0);
+        }
         break;
     }
   }

@@ -17,22 +17,34 @@ public class AddQuestionMultipleChoice
   private JTextField _optb = new JTextField();
   private JTextField _optc = new JTextField();
   private Object[] message = {
-    "Question:",_question,
-    "Answer:",_answer,
-    "Option A:",_opta,
+    "Question:", _question,
+    "Answer:", _answer,
+    "Option A:", _opta,
     "Option B:", _optb,
-    "Option C:",_optc
+    "Option C:", _optc
   };
 
   public AddQuestionMultipleChoice()
   {
     Database database = new Database();
-    int option = JOptionPane.showConfirmDialog(_frame,message,"Enter question information",JOptionPane.OK_CANCEL_OPTION);
+    database.closeConnection();
+    int option = JOptionPane.showConfirmDialog(_frame, message, "Enter question information", JOptionPane.OK_CANCEL_OPTION);
     if (option == JOptionPane.OK_OPTION)
     {
-      database.addQuestion(
-        new Question(_question.getText(),_answer.getText(),_opta.getText(),_optb.getText(),_optc.getText()));
-      database.closeConnection();
+      try
+      {
+        database.addQuestion(
+          new Question(_question.getText(), _answer.getText(), _opta.getText(), _optb.getText(), _optc.getText()));
+      }
+      catch (Exception e)
+      {
+        JFrame frame = new JFrame("Error");
+        JOptionPane.showMessageDialog(frame, e.getClass().getName() + ": " + e.getMessage());
+      }
+      finally
+      {
+        database.closeConnection();
+      }
     }
   }
 }
