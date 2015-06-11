@@ -36,7 +36,7 @@ public class doorGUI  //rename to roomGUI
     }
 
 
-  public doorGUI(Room room, int numOfDoors)
+  public doorGUI(Room room)
   {
        frame = new JFrame();
        frame.setBounds(100, 100, 740, 422);	

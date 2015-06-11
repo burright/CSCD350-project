@@ -92,7 +92,7 @@ public class MazeDriver
         correct = 0;
 
         Room curroom = maze.getRoom(curX, curY);
-        doorGUI doorWindow = new doorGUI(curroom, curroom.getNumDoors());
+        doorGUI doorWindow = new doorGUI(curroom);
 
         EventQueue.invokeLater(new Runnable() {
           public void run() {

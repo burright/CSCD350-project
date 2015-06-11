@@ -180,7 +180,7 @@ public class Database
   }
 
   // checks an answer with the question object
-  public boolean checkAnswer(String answer, Question question)
+  public static boolean checkAnswer(String answer, Question question)
   {
     return answer.equalsIgnoreCase(question.getQuestion());
   }
@@ -361,45 +361,38 @@ public class Database
   }
 
   // inserts a question object into the database then shuffles the random question generator
-  public void addQuestion(Question question)
+  public void addQuestion(Question question) throws SQLException
   {
     String sql;
 
-    try (Statement statement = _connection.createStatement())
+    Statement statement = _connection.createStatement();
+    switch (question.getType())
     {
-      switch (question.getType())
+      case TABLE_MULTI:
       {
-        case TABLE_MULTI:
-        {
-          sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
-                  "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
-                  + question.getOptB() + "','" + question.getOptC() + "');";
-          break;
-        }
-        case TABLE_TF:
-        {
-          sql = "INSERT INTO true_false (question,answer) " +
-                  "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
-          break;
-        }
-        case TABLE_SHORT:
-        {
-          sql = "INSERT INTO short_answer (question,answer) " +
-                  "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
-          break;
-        }
-        default:
-          throw new RuntimeException(question.getType() + ": invalid question type");
+        sql = "INSERT INTO multiple_choice(question, answer, opta, optb, optc) " +
+          "VALUES ('" + question + "','" + question.getAnswer().toLowerCase() + "','" + question.getOptA() + "','"
+          + question.getOptB() + "','" + question.getOptC() + "');";
+        break;
       }
-      statement.executeUpdate(sql);
-      _connection.commit();
+      case TABLE_TF:
+      {
+        sql = "INSERT INTO true_false (question,answer) " +
+          "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+        break;
+      }
+      case TABLE_SHORT:
+      {
+        sql = "INSERT INTO short_answer (question,answer) " +
+          "VALUES ('" + question.getQuestion() + "','" + question.getAnswer().toLowerCase() + "')";
+        break;
+      }
+      default:
+        throw new RuntimeException(question.getType() + ": invalid question type");
+    }
+    statement.executeUpdate(sql);
+    _connection.commit();
 
-    }
-    catch (SQLException e)
-    {
-      System.err.println(e.getClass().getName() + ": " + e.getMessage());
-      System.exit(0);
-    }
 
     shuffle(question.getType());
   }
