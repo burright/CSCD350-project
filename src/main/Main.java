@@ -19,6 +19,14 @@ public class Main
       case 0:
         MazeDriver mazeDriver = new MazeDriver();
         mazeDriver.createMaze(new File("MazeInput.txt"));
+        if (mazeDriver.traverseMaze())
+        {
+          System.out.println("Congratulations you reached the end of the maze!");
+        }
+        else
+        {
+          System.out.println("You've lost trivia maze!");
+        }
         break;
       case 1:
         AddQuestionWindow addQuestionWindow = new AddQuestionWindow();
