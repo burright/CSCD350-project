@@ -89,7 +89,7 @@ public class MazeDriver
 
       do {
 
-        correct = 0;
+        correct = 1;
 
         Room curroom = maze.getRoom(curX, curY);
         doorGUI doorWindow = new doorGUI(curroom);
@@ -117,82 +117,96 @@ public class MazeDriver
         System.out.println(curQuestion.getQuestion());
         System.out.println(curQuestion.getAnswer());
 
-
-        if (curQuestion.getType().equals("short_answer")) {
-          shortAnswerGUI saWindow = new shortAnswerGUI(curQuestion);
-          EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              try {
-
-                saWindow.show();
-
-              } catch (Exception e) {
-                e.printStackTrace();
-              }
-            }
-          });
-
-          while (saWindow.getAnswer() == 0) {
-            System.out.print("");
-          }
-          correct = saWindow.getAnswer();
-        } else if (curQuestion.getType().equals("true_false")) {
-          trueFalseGUI tfWindow = new trueFalseGUI(curQuestion);
-          EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              try {
-
-                tfWindow.show();
-
-              } catch (Exception e) {
-                e.printStackTrace();
-              }
-            }
-          });
-
-          while (tfWindow.getAnswer() == 0) {
-            System.out.print("");
-          }
-          correct = tfWindow.getAnswer();
-        } else if (curQuestion.getType().equals("multiple_choice")) {
-          multiChoiceGUI mcWindow = new multiChoiceGUI(curQuestion);
-          EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              try {
-
-                mcWindow.show();
-
-              } catch (Exception e) {
-                e.printStackTrace();
-              }
-            }
-          });
-
-          while (mcWindow.getAnswer() == 0) {
-            System.out.print("");
-          }
-          correct = mcWindow.getAnswer();
-        }
-
-        if(correct == 2)
+        if(curroom.getDoor(curDirection).getLocked())//door is not already unlocked
         {
-          maze.lockDoor(curX,curY,curDirection);
+
+          if (curQuestion.getType().equals("short_answer")) {
+            shortAnswerGUI saWindow = new shortAnswerGUI(curQuestion);
+            EventQueue.invokeLater(new Runnable() {
+              public void run() {
+                try {
+
+                  saWindow.show();
+
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+
+            while (saWindow.getAnswer() == 0) {
+              System.out.print("");
+            }
+            correct = saWindow.getAnswer();
+          } else if (curQuestion.getType().equals("true_false")) {
+            trueFalseGUI tfWindow = new trueFalseGUI(curQuestion);
+            EventQueue.invokeLater(new Runnable() {
+              public void run() {
+                try {
+
+                  tfWindow.show();
+
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+
+            while (tfWindow.getAnswer() == 0) {
+              System.out.print("");
+            }
+            correct = tfWindow.getAnswer();
+          } else if (curQuestion.getType().equals("multiple_choice")) {
+            multiChoiceGUI mcWindow = new multiChoiceGUI(curQuestion);
+            EventQueue.invokeLater(new Runnable() {
+              public void run() {
+                try {
+
+                  mcWindow.show();
+
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+
+            while (mcWindow.getAnswer() == 0) {
+              System.out.print("");
+            }
+            correct = mcWindow.getAnswer();
+          }
+
+          boolean navigatable = true;
+          if (correct == 2) {
+            navigatable = maze.lockDoor(curX, curY, curDirection);
+          }
+          if (navigatable == false)
+            return false;
+
         }
 
       } while (correct != 1);
 
       switch (curDirection) {
         case "North":
+          maze.getRoom(curX,curY).getDoor("North").setLocked(false);
           curX--;
+          maze.getRoom(curX,curY).getDoor("South").setLocked(false);
           break;
         case "South":
+          maze.getRoom(curX,curY).getDoor("South").setLocked(false);
           curX++;
+          maze.getRoom(curX,curY).getDoor("North").setLocked(false);
           break;
         case "East":
+          maze.getRoom(curX,curY).getDoor("East").setLocked(false);
           curY++;
+          maze.getRoom(curX,curY).getDoor("West").setLocked(false);
           break;
         case "West":
+          maze.getRoom(curX,curY).getDoor("West").setLocked(false);
           curY--;
+          maze.getRoom(curX,curY).getDoor("East").setLocked(false);
           break;
       }
     }
