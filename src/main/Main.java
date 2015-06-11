@@ -24,6 +24,8 @@ public class Main
         AddQuestionWindow addQuestionWindow = new AddQuestionWindow();
         addQuestionWindow.questionWindow();
         break;
+      default:
+        System.exit(0);
     }
   }
 }
