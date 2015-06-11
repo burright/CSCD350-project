@@ -7,6 +7,8 @@ import java.util.Scanner;
 import view.*;
 import database.*;
 
+import javax.swing.*;
+
 public class MazeDriver
 {
 
@@ -117,7 +119,7 @@ public class MazeDriver
         System.out.println(curQuestion.getQuestion());
         System.out.println(curQuestion.getAnswer());
 
-        if(curroom.getDoor(curDirection).getLocked())//door is not already unlocked
+        if(curroom.getDoor(curDirection).getLocked() && !curroom.getDoor(curDirection).isPermLocked())//door is not already unlocked and is not permLocked
         {
 
           if (curQuestion.getType().equals("short_answer")) {
@@ -183,6 +185,12 @@ public class MazeDriver
           if (navigatable == false)
             return false;
 
+        }
+
+        if(curroom.getDoor(curDirection).isPermLocked())
+        {
+            correct = -1;//loop again
+            System.out.println("This door has been permanently locked!");
         }
 
       } while (correct != 1);
