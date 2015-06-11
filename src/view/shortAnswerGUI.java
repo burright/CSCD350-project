@@ -71,7 +71,7 @@ public class shortAnswerGUI extends makeGUI
 			
 			
 			String txt = textField.getText();
-			
+			System.out.println(txt);
 			if(txt.equals("")){
 				JOptionPane.showMessageDialog(frame,
 					    "You did not answer the question!",
@@ -80,7 +80,7 @@ public class shortAnswerGUI extends makeGUI
 			}
 			else
 			{
-				if(Database.checkAnswer(txt, question)){
+				if(txt.equalsIgnoreCase(question.getAnswer())==true){
 					JOptionPane.showMessageDialog(frame,
 						    "Correct answer!",
 						    "Congrats!",
@@ -88,7 +88,7 @@ public class shortAnswerGUI extends makeGUI
 					
 					setAnswer(1);
 				}
-				else
+				else if(txt.equalsIgnoreCase(question.getAnswer())==false)
 				{
 					JOptionPane.showMessageDialog(frame,
 						    "You got the answer wrong!",
